@@ -8,7 +8,7 @@ import {
 	useReducedMotion,
 } from "motion/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { products } from "../data/products";
 
 const MotionLink = motion.create(Link);
@@ -117,8 +117,23 @@ function OrbitElectron({
 
 export function AtomDiagram() {
 	const reduceMotion = useReducedMotion();
+	const diagramRef = useRef<HTMLDivElement>(null);
+	const [atomScale, setAtomScale] = useState(1);
 	const [isBoosted, setIsBoosted] = useState(false);
 	const [boostVersion, setBoostVersion] = useState(0);
+
+	useEffect(() => {
+		const diagram = diagramRef.current;
+		if (!diagram) return;
+
+		const resizeObserver = new ResizeObserver(([entry]) => {
+			const { width, height } = entry.contentRect;
+			setAtomScale(Math.min(1, width / 500, height / 500));
+		});
+		resizeObserver.observe(diagram);
+
+		return () => resizeObserver.disconnect();
+	}, []);
 
 	useEffect(() => {
 		if (!isBoosted) return;
@@ -134,29 +149,35 @@ export function AtomDiagram() {
 
 	return (
 		<div
+			ref={diagramRef}
 			className={`atom-diagram${isBoosted ? " atom-diagram-boosted" : ""}`}
 			aria-label="JP Technology atom diagram"
 			role="group"
 		>
 			<div className="atom-grid" />
-			<motion.button
-				className="atom-core"
-				type="button"
-				aria-label="Boost the atom diagram"
-				onClick={boostAtom}
-				whileTap={reduceMotion ? undefined : { scale: 0.94 }}
+			<div
+				className="atom-canvas"
+				style={{ transform: `translate(-50%, -50%) scale(${atomScale})` }}
 			>
-				<strong>JP TECHNOLOGY</strong>
-				<span>DEVELOPMENT</span>
-			</motion.button>
-			{electrons.map((electron) => (
-				<OrbitElectron
-					boosted={isBoosted}
-					electron={electron}
-					key={electron.label}
-					reduceMotion={reduceMotion}
-				/>
-			))}
+				<motion.button
+					className="atom-core"
+					type="button"
+					aria-label="Boost the atom diagram"
+					onClick={boostAtom}
+					whileTap={reduceMotion ? undefined : { scale: 0.94 }}
+				>
+					<strong>JP TECHNOLOGY</strong>
+					<span>DEVELOPMENT</span>
+				</motion.button>
+				{electrons.map((electron) => (
+					<OrbitElectron
+						boosted={isBoosted}
+						electron={electron}
+						key={electron.label}
+						reduceMotion={reduceMotion}
+					/>
+				))}
+			</div>
 			<div className="atom-caption">
 				Ideas in motion
 				<br />

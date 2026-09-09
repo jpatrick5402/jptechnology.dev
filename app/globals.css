@@ -225,6 +225,15 @@ h2 em {
 	position: absolute;
 	z-index: 0;
 }
+.atom-canvas {
+	height: 500px;
+	left: 50%;
+	position: absolute;
+	top: 49%;
+	transform-origin: center center;
+	width: 500px;
+	z-index: 2;
+}
 .atom-core {
 	align-items: center;
 	background: var(--coral);
