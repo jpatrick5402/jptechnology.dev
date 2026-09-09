@@ -63,11 +63,11 @@ export default function Home() {
 						<span className="live-dot" /> Hardware + software studio / 2026
 					</p>
 					<h1>
-						Make the
+						Building the
 						<br />
-						<em>next</em> thing
+						<em>future</em>
 						<br />
-						matter.
+						together.
 					</h1>
 					<p className="hero-intro">
 						JP Technology Development LLC builds focused technology (hardware
@@ -114,7 +114,7 @@ export default function Home() {
 				<div className="section-heading">
 					<div className="section-label">[ 02 / Products ]</div>
 					<p>
-						Small bets. Real users.
+						Small experiments. Real users.
 						<br />A growing constellation.
 					</p>
 				</div>
@@ -145,11 +145,11 @@ export default function Home() {
 					<div className="section-label">[ 03 / Open brief ]</div>
 					<h2>
 						Have a<br />
-						<em>strange</em> idea?
+						<em>groundbreaking</em> idea?
 					</h2>
 					<p>
-						Tell us the version that keeps you up at night. We like the weird,
-						useful, and half-formed.
+						Tell us about the idea that keeps you up at night. We like the
+						weird, useful, and half-formed.
 					</p>
 				</div>
 				<div className="idea-form-wrap">
