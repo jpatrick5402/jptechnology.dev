@@ -3,6 +3,7 @@
 import {
 	animate,
 	motion,
+	useAnimationFrame,
 	useMotionValue,
 	useReducedMotion,
 } from "motion/react";
@@ -53,38 +54,43 @@ function OrbitElectron({
 }) {
 	const orbitRotation = useMotionValue(electron.angle);
 	const labelRotation = useMotionValue(-electron.angle);
+	const speed = useMotionValue(1);
 
 	useEffect(() => {
 		if (reduceMotion) {
 			orbitRotation.set(electron.angle);
 			labelRotation.set(-electron.angle);
+			speed.set(1);
 			return;
 		}
 
-		const duration = boosted
-			? electron.duration / electron.boostMultiplier
-			: electron.duration;
-		const transition = {
-			duration,
-			ease: "linear" as const,
-			repeat: Infinity,
-		};
-		const orbitAnimation = animate(
-			orbitRotation,
-			orbitRotation.get() + 360,
-			transition,
-		);
-		const labelAnimation = animate(
-			labelRotation,
-			labelRotation.get() - 360,
-			transition,
+		const speedAnimation = animate(
+			speed,
+			boosted ? electron.boostMultiplier : 1,
+			{
+				duration: boosted ? 0.18 : 0.8,
+				ease: boosted ? "easeOut" : "easeInOut",
+			},
 		);
 
-		return () => {
-			orbitAnimation.stop();
-			labelAnimation.stop();
-		};
-	}, [boosted, electron, labelRotation, orbitRotation, reduceMotion]);
+		return () => speedAnimation.stop();
+	}, [
+		boosted,
+		electron.boostMultiplier,
+		electron.angle,
+		labelRotation,
+		orbitRotation,
+		reduceMotion,
+		speed,
+	]);
+
+	useAnimationFrame((_, delta) => {
+		if (reduceMotion) return;
+		const degreesPerSecond = 360 / electron.duration;
+		const rotationDelta = (delta / 1000) * degreesPerSecond * speed.get();
+		orbitRotation.set(orbitRotation.get() + rotationDelta);
+		labelRotation.set(labelRotation.get() - rotationDelta);
+	});
 
 	return (
 		<>
