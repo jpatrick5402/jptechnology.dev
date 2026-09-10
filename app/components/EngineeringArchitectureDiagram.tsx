@@ -63,7 +63,7 @@ export function EngineeringArchitectureDiagram() {
 			style={diagramStyle}
 		>
 			<div className="architecture-header">
-				<span>SYS / ARCHITECTURE</span>
+				<span>LIVE PROJECT TRACKING</span>
 				<span>{String(products.length).padStart(2, "0")} MODULES / ONLINE</span>
 			</div>
 			<div className="architecture-body">
