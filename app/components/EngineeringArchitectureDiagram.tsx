@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { products } from "../data/products";
 
 const MotionLink = motion.create(Link);
@@ -31,8 +31,8 @@ function ArchitectureModule({
 			<span className="module-copy">
 				<strong>{product.name}</strong>
 				<small>{product.kicker}</small>
+				<span className="module-status">{product.status}</span>
 			</span>
-			<span className="module-status">{product.status}</span>
 		</MotionLink>
 	);
 }
@@ -40,13 +40,54 @@ function ArchitectureModule({
 export function EngineeringArchitectureDiagram() {
 	const reduceMotion = useReducedMotion();
 	const [isPulsed, setIsPulsed] = useState(false);
+	const [busGeometry, setBusGeometry] = useState({ top: 104, length: 0 });
+	const bodyRef = useRef<HTMLDivElement>(null);
+	const modulesRef = useRef<HTMLDivElement>(null);
+	const coreRef = useRef<HTMLButtonElement>(null);
 	const moduleRows = Math.max(1, Math.ceil(products.length / 2));
 	const diagramStyle = {
-		"--diagram-height": `${260 + moduleRows * 80}px`,
-		"--diagram-height-mobile": `${110 + moduleRows * 80}px`,
+		"--diagram-height": `${336 + (moduleRows - 1) * 86}px`,
+		"--diagram-height-mobile": `${296 + (moduleRows - 1) * 68}px`,
+		"--module-field-height": `${192 + (moduleRows - 1) * 86}px`,
+		"--module-field-height-mobile": `${146 + (moduleRows - 1) * 68}px`,
 		"--bus-length": `${52 + (moduleRows - 1) * 86}px`,
 		"--bus-length-mobile": `${36 + (moduleRows - 1) * 68}px`,
+		"--measured-bus-top": `${busGeometry.top}px`,
+		"--measured-bus-length": `${busGeometry.length}px`,
 	} as React.CSSProperties;
+
+	useEffect(() => {
+		const modules = modulesRef.current;
+		const body = bodyRef.current;
+		const core = coreRef.current;
+		if (!modules || !body || !core) return;
+
+		const updateBusLength = () => {
+			const lastModule = modules.lastElementChild as HTMLElement | null;
+			if (!lastModule) return;
+			const bodyRect = body.getBoundingClientRect();
+			const coreRect = core.getBoundingClientRect();
+			const lastModuleRect = lastModule.getBoundingClientRect();
+			const busTop = coreRect.bottom - bodyRect.top;
+			const busEnd =
+				lastModuleRect.top + lastModuleRect.height / 2 - bodyRect.top;
+			setBusGeometry({
+				top: busTop,
+				length: Math.max(0, busEnd - busTop),
+			});
+		};
+
+		updateBusLength();
+		const resizeObserver = new ResizeObserver(updateBusLength);
+		resizeObserver.observe(body);
+		resizeObserver.observe(modules);
+		resizeObserver.observe(core);
+		window.addEventListener("resize", updateBusLength);
+		return () => {
+			resizeObserver.disconnect();
+			window.removeEventListener("resize", updateBusLength);
+		};
+	}, [products.length]);
 
 	function pulseSystem() {
 		if (reduceMotion) return;
@@ -66,9 +107,9 @@ export function EngineeringArchitectureDiagram() {
 				<span>LIVE PROJECT TRACKING</span>
 				<span>{String(products.length).padStart(2, "0")} MODULES / ONLINE</span>
 			</div>
-			<div className="architecture-body">
+			<div className="architecture-body" ref={bodyRef}>
 				<div className="architecture-bus" aria-hidden="true" />
-				<div className="architecture-modules">
+				<div className="architecture-modules" ref={modulesRef}>
 					{products.map((product, index) => (
 						<ArchitectureModule
 							key={product.slug}
@@ -80,6 +121,7 @@ export function EngineeringArchitectureDiagram() {
 				</div>
 				<motion.button
 					className="architecture-core"
+					ref={coreRef}
 					type="button"
 					aria-label="Pulse the JP Technology Development system"
 					onClick={pulseSystem}
