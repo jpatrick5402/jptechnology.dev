@@ -29,7 +29,10 @@ export function ProductPage({ product }: ProductPageProps) {
 			<section className="product-hero section-wrap">
 				<div className="product-hero-copy">
 					<Link className="back-link" href="/#products">
-						← Back to products
+						<span className="back-link-arrow" aria-hidden="true">
+							←
+						</span>
+						<span>Back to products</span>
 					</Link>
 					<p className="eyebrow">
 						<span className="live-dot" /> Product / {product.number}
@@ -94,15 +97,15 @@ export function ProductPage({ product }: ProductPageProps) {
 				<div>
 					<div className="section-label">[ Keep exploring ]</div>
 					<h2>
-						Build toward
+						Make room for
 						<br />
-						<em>better.</em>
+						<em>better systems.</em>
 					</h2>
 				</div>
 				<div>
 					<p>
-						Have a problem this product could solve, or a new idea for us to
-						explore?
+						Have a problem this product could solve, or a system that needs a
+						better shape?
 					</p>
 					<Link className="submit-button" href="/#idea">
 						Start a conversation <span aria-hidden="true">↗</span>

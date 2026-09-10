@@ -3,9 +3,9 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-	title: "JP Technology | Make the next thing matter",
+	title: "JP Technology | Make the Hard Things Work For You",
 	description:
-		"JP Technology is an independent hardware and software studio building focused tools for the next question.",
+		"JP Technology is an independent engineering studio building focused hardware and software for problems that do not fit inside a template.",
 };
 
 export default function RootLayout({

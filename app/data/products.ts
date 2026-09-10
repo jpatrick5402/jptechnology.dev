@@ -62,6 +62,40 @@ export const products: Product[] = [
 			{ value: "1", label: "shared direction" },
 		],
 	},
+	{
+		slug: "relay",
+		number: "04",
+		name: "Relay",
+		kicker: "The handoff, made visible.",
+		description:
+			"A lightweight coordination layer for work that moves between people, tools, and places.",
+		longDescription:
+			"Relay makes the handoff legible. It keeps ownership, context, and the next action attached as work moves through a team, so momentum does not get lost between systems.",
+		tags: ["Workflow", "Coordination", "Integrations"],
+		status: "Prototype",
+		stats: [
+			{ value: "12", label: "active handoffs" },
+			{ value: "01", label: "shared thread" },
+			{ value: "0", label: "lost context" },
+		],
+	},
+	{
+		slug: "switchyard",
+		number: "05",
+		name: "Switchyard",
+		kicker: "More signal, less switching.",
+		description:
+			"A focused workspace for bringing tools and decisions together without adding another silo.",
+		longDescription:
+			"Switchyard gives complex work a calm control surface. It connects the tools teams already use and surfaces the decisions that need attention without becoming another place to maintain.",
+		tags: ["Systems", "Focus", "Tooling"],
+		status: "Exploring",
+		stats: [
+			{ value: "08", label: "connected tools" },
+			{ value: "03", label: "decision views" },
+			{ value: "1", label: "clear workspace" },
+		],
+	},
 ];
 
 export function getProduct(slug: string) {

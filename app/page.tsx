@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
-import { AtomDiagram } from "./components/AtomDiagram";
+import { EngineeringArchitectureDiagram } from "./components/EngineeringArchitectureDiagram";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { products } from "./data/products";
 
@@ -60,49 +60,51 @@ export default function Home() {
 			<section className="hero section-wrap" id="top">
 				<div className="hero-copy">
 					<p className="eyebrow">
-						<span className="live-dot" /> Hardware + software studio / 2026
+						<span className="live-dot" /> Independent technology studio / 2026
 					</p>
 					<h1>
-						Building the
+						Make the
 						<br />
-						<em>future</em>
+						<em>hard things</em>
 						<br />
-						together.
+						work
+						<br />
+						for you.
 					</h1>
 					<p className="hero-intro">
-						JP Technology Development LLC builds focused technology (hardware
-						and software) to deliver custom solutions to your problems
+						JP Technology Development LLC designs and builds focused hardware
+						and software for problems that do not fit inside a template.
 					</p>
 					<a className="text-link" href="#products">
 						Explore our work <span aria-hidden="true">↓</span>
 					</a>
 				</div>
-				<AtomDiagram />
+				<EngineeringArchitectureDiagram />
 			</section>
 			<section className="ticker" aria-label="Company principles">
-				<div>Curious by default</div>
+				<div>Start with the problem</div>
 				<span>✳</span>
-				<div>Useful over clever</div>
+				<div>Make complexity useful</div>
 				<span>✳</span>
-				<div>Built to last</div>
+				<div>Build for the real world</div>
 				<span>✳</span>
-				<div>Hardware + software</div>
+				<div>Leave a clear interface</div>
 			</section>
 			<section className="about section-wrap" id="about">
 				<div className="section-label">[ 01 / About ]</div>
 				<div className="about-content">
 					<h2>
-						Technology should feel like a <span>tailwind.</span>
+						Good technology makes hard work feel <span>possible.</span>
 					</h2>
 					<div className="about-text">
 						<p>
-							We are a small, focused team making hardware and software for the
-							space between a good question and a better future.
+							We are a small, focused team building the systems that sit between
+							a messy problem and a working answer.
 						</p>
 						<p>
-							That means staying close to the problem, making the complicated
-							feel obvious, and shipping things people are genuinely glad to
-							use.
+							That means staying close to the constraints, making the
+							complicated legible, and shipping things people are genuinely glad
+							to use.
 						</p>
 						<a className="text-link" href="#idea">
 							Start a conversation <span aria-hidden="true">↗</span>
@@ -114,8 +116,8 @@ export default function Home() {
 				<div className="section-heading">
 					<div className="section-label">[ 02 / Products ]</div>
 					<p>
-						Small experiments. Real users.
-						<br />A growing constellation.
+						Working systems. Useful experiments.
+						<br />A growing toolkit.
 					</p>
 				</div>
 				<div className="product-list">
@@ -144,12 +146,13 @@ export default function Home() {
 				<div className="idea-heading">
 					<div className="section-label">[ 03 / Open brief ]</div>
 					<h2>
-						Have a<br />
-						<em>groundbreaking</em> idea?
+						Have a problem
+						<br />
+						worth <em>building through?</em>
 					</h2>
 					<p>
-						Tell us about the idea that keeps you up at night. We like the
-						weird, useful, and half-formed.
+						Bring us the stubborn workflow, the rough sketch, or the question
+						that needs more than another off-the-shelf tool.
 					</p>
 				</div>
 				<div className="idea-form-wrap">
@@ -169,7 +172,7 @@ export default function Home() {
 								<textarea
 									name="idea"
 									required
-									placeholder="A sentence, a sketch, a big unsolved problem..."
+									placeholder="A problem, a sketch, a stubborn workflow..."
 								/>
 							</label>
 							<label>
@@ -191,7 +194,7 @@ export default function Home() {
 								disabled={isSubmitting}
 								type="submit"
 							>
-								{isSubmitting ? "Sending..." : "Send the signal"}{" "}
+								{isSubmitting ? "Sending..." : "Send the brief"}{" "}
 								<span aria-hidden="true">↗</span>
 							</button>
 						</form>
@@ -205,9 +208,7 @@ export default function Home() {
 						Technology<span className="wordmark-dot">.</span>dev
 					</span>
 				</a>
-				<p>
-					© 2026 JP Technology. Hardware and software for the next question.
-				</p>
+				<p>© 2026 JP Technology. Hardware and software for work worth doing.</p>
 				<a href="mailto:hello@jptechnology.dev">
 					hello@jptechnology.dev <span aria-hidden="true">↗</span>
 				</a>
