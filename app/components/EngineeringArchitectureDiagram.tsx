@@ -44,14 +44,23 @@ export function EngineeringArchitectureDiagram() {
 	const bodyRef = useRef<HTMLDivElement>(null);
 	const modulesRef = useRef<HTMLDivElement>(null);
 	const coreRef = useRef<HTMLButtonElement>(null);
-	const moduleRows = Math.max(1, Math.ceil(products.length / 2));
+	const moduleRows = Math.ceil(products.length / 2);
+	const moduleFieldHeight = products.length
+		? 120 + moduleRows * 72 + Math.max(0, moduleRows - 1) * 14
+		: 120;
+	const moduleFieldHeightMobile = products.length
+		? 86 + moduleRows * 60 + Math.max(0, moduleRows - 1) * 8
+		: 86;
+	const moduleBottomOffset = 28;
+	const moduleBottomOffsetMobile = 24;
 	const diagramStyle = {
-		"--diagram-height": `${336 + (moduleRows - 1) * 86}px`,
-		"--diagram-height-mobile": `${296 + (moduleRows - 1) * 68}px`,
-		"--module-field-height": `${192 + (moduleRows - 1) * 86}px`,
-		"--module-field-height-mobile": `${146 + (moduleRows - 1) * 68}px`,
-		"--bus-length": `${52 + (moduleRows - 1) * 86}px`,
-		"--bus-length-mobile": `${36 + (moduleRows - 1) * 68}px`,
+		"--module-rows": moduleRows,
+		"--diagram-height": `${moduleFieldHeight + moduleBottomOffset + 66}px`,
+		"--diagram-height-mobile": `${moduleFieldHeightMobile + moduleBottomOffsetMobile + 58}px`,
+		"--module-field-height": `${moduleFieldHeight + moduleBottomOffset}px`,
+		"--module-field-height-mobile": `${moduleFieldHeightMobile + moduleBottomOffsetMobile}px`,
+		"--bus-length": `${Math.max(0, moduleFieldHeight - 104)}px`,
+		"--bus-length-mobile": `${Math.max(0, moduleFieldHeightMobile - 80)}px`,
 		"--measured-bus-top": `${busGeometry.top}px`,
 		"--measured-bus-length": `${busGeometry.length}px`,
 	} as React.CSSProperties;

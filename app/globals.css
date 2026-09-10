@@ -244,6 +244,7 @@ h2 em {
 .engineering-diagram {
 	background: #121c17;
 	border: 1px solid #34453d;
+	align-self: start;
 	display: flex;
 	flex-direction: column;
 	height: auto;
@@ -284,8 +285,8 @@ h2 em {
 	padding-top: 12px;
 }
 .architecture-body {
-	flex: 1;
-	min-height: 0;
+	height: auto;
+	min-height: var(--module-field-height);
 	position: relative;
 }
 .architecture-bus {
@@ -317,12 +318,13 @@ h2 em {
 .architecture-modules {
 	align-content: start;
 	display: grid;
-	grid-auto-rows: minmax(72px, auto);
 	grid-template-columns: minmax(0, 1fr) 86px minmax(0, 1fr);
+	grid-template-rows: repeat(var(--module-rows), minmax(72px, 1fr));
 	gap: 14px 0;
 	height: auto;
 	min-height: var(--module-field-height);
 	padding-top: 120px;
+	padding-bottom: 28px;
 	position: relative;
 	width: calc(100% - 16px);
 	margin-inline: auto;
@@ -1169,7 +1171,8 @@ h2 em {
 		margin-top: 60px;
 	}
 	.engineering-diagram {
-		height: var(--diagram-height-mobile);
+		height: auto;
+		min-height: var(--diagram-height-mobile);
 		margin-top: 44px;
 		padding: 14px 12px 15px;
 	}
@@ -1179,11 +1182,12 @@ h2 em {
 	}
 	.architecture-modules {
 		grid-template-columns: minmax(0, 1fr) 52px minmax(0, 1fr);
+		grid-template-rows: repeat(var(--module-rows), minmax(60px, 1fr));
 		gap: 8px 0;
-		grid-auto-rows: minmax(60px, auto);
 		padding-top: 86px;
 		height: auto;
 		min-height: var(--module-field-height-mobile);
+		padding-bottom: 24px;
 	}
 	.architecture-module {
 		height: auto;
