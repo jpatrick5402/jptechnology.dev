@@ -68,7 +68,7 @@ a {
 	color: var(--acid);
 	display: inline-flex;
 	font-family: var(--mono);
-	font-size: 11px;
+	font-size: 12px;
 	height: 28px;
 	justify-content: center;
 	letter-spacing: -0.1em;
@@ -81,7 +81,7 @@ a {
 	align-items: center;
 	display: flex;
 	font-family: var(--mono);
-	font-size: 11px;
+	font-size: 12px;
 	gap: 30px;
 	text-transform: uppercase;
 }
@@ -112,7 +112,7 @@ a {
 	cursor: pointer;
 	display: inline-flex;
 	font-family: var(--mono);
-	font-size: 11px;
+	font-size: 12px;
 	gap: 7px;
 	padding: 0;
 	text-transform: uppercase;
@@ -146,7 +146,7 @@ a {
 .section-label {
 	color: var(--muted-faint);
 	font-family: var(--mono);
-	font-size: 11px;
+	font-size: 12px;
 	letter-spacing: 0.03em;
 	text-transform: uppercase;
 }
@@ -191,6 +191,9 @@ h1 .path-arrow {
 	letter-spacing: 0;
 	line-height: 1.2;
 	margin: 0 0 0 0.12em;
+}
+:root[data-theme="light"] h1 .path-arrow {
+	color: var(--deep);
 }
 h1 em,
 h2 em {
@@ -936,6 +939,9 @@ h2 em {
 .ticker span {
 	font-size: 15px;
 }
+.ticker-mark::before {
+	content: "+";
+}
 .about {
 	display: grid;
 	grid-template-columns: 25% 75%;
@@ -1033,6 +1039,9 @@ h2 em {
 	color: var(--coral);
 	font-size: 30px;
 }
+.products-empty-mark::before {
+	content: "+";
+}
 .products-empty-state h3 {
 	font-size: 30px;
 	letter-spacing: -0.07em;
@@ -1060,7 +1069,7 @@ h2 em {
 .product-tags {
 	color: var(--muted-faint);
 	font-family: var(--mono);
-	font-size: 10px;
+	font-size: 12px;
 }
 .product-row h3 {
 	font-size: 26px;
@@ -1106,7 +1115,7 @@ h2 em {
 	gap: 12%;
 	grid-template-columns: 1fr 1fr;
 	margin-bottom: 0;
-	padding: 110px max(5vw, 60px);
+	padding: 110px max(calc((100% - 1200px) / 2), 36px);
 	width: 100%;
 }
 .idea .section-label {
@@ -1134,7 +1143,7 @@ h2 em {
 .idea label {
 	color: #9daa9e;
 	font-family: var(--mono);
-	font-size: 10px;
+	font-size: 12px;
 	text-transform: uppercase;
 }
 .idea input,
@@ -1171,7 +1180,7 @@ h2 em {
 	color: var(--on-acid);
 	cursor: pointer;
 	font-family: var(--mono);
-	font-size: 11px;
+	font-size: 12px;
 	padding: 15px 18px;
 	text-align: left;
 	text-transform: uppercase;
@@ -1184,7 +1193,7 @@ h2 em {
 .form-error {
 	color: var(--coral);
 	font-family: var(--mono);
-	font-size: 11px;
+	font-size: 12px;
 	line-height: 1.4;
 	margin: 0;
 }
@@ -1206,6 +1215,9 @@ h2 em {
 	color: var(--acid);
 	font-size: 34px;
 }
+.success-message span::before {
+	content: "+";
+}
 .success-message h3 {
 	font-size: 34px;
 	letter-spacing: -0.07em;
@@ -1218,6 +1230,95 @@ h2 em {
 .success-message button {
 	margin-top: 15px;
 }
+.newsletter {
+	border-top: 1px solid var(--line);
+	display: grid;
+	gap: 12%;
+	grid-template-columns: 1fr 1fr;
+	padding-bottom: 88px;
+	padding-top: 88px;
+}
+.newsletter h2 {
+	font-size: clamp(36px, 4vw, 58px);
+	letter-spacing: -0.08em;
+	line-height: 0.9;
+	margin: 48px 0 18px;
+}
+.newsletter > div:first-child > p {
+	color: var(--muted-strong);
+	font-size: 14px;
+	line-height: 1.5;
+	max-width: 290px;
+}
+.newsletter-form-wrap {
+	align-self: end;
+}
+.newsletter label {
+	color: var(--muted-faint);
+	display: block;
+	font-family: var(--mono);
+	font-size: 12px;
+	margin-bottom: 12px;
+	text-transform: uppercase;
+}
+.newsletter-input-row {
+	align-items: end;
+	display: flex;
+	gap: 14px;
+}
+.newsletter input[type="email"] {
+	background: transparent;
+	border: 0;
+	border-bottom: 1px solid var(--line);
+	color: var(--ink);
+	font-family: var(--display);
+	font-size: 16px;
+	min-width: 0;
+	outline: 0;
+	padding: 0 0 13px;
+	width: 100%;
+}
+.newsletter input[type="email"]:focus {
+	border-color: var(--coral);
+}
+.newsletter input[type="email"]::placeholder {
+	color: var(--muted-faint);
+}
+.newsletter .submit-button {
+	flex: 0 0 auto;
+}
+.newsletter-consent {
+	color: var(--muted-faint);
+	font-family: var(--mono);
+	font-size: 12px;
+	line-height: 1.4;
+	margin: 13px 0 0;
+}
+.newsletter-success {
+	align-items: center;
+	display: flex;
+	gap: 15px;
+}
+.newsletter-success span {
+	color: var(--coral);
+	font-size: 28px;
+}
+.newsletter-success span::before {
+	content: "+";
+}
+.newsletter-success p {
+	font-size: 16px;
+	margin: 0;
+}
+.website-field {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
 .site-footer {
 	align-items: center;
 	display: flex;
@@ -1228,7 +1329,7 @@ h2 em {
 .site-footer > a:last-child {
 	color: var(--muted-faint);
 	font-family: var(--mono);
-	font-size: 10px;
+	font-size: 12px;
 	margin: 0;
 }
 .site-footer > a:last-child {
@@ -1401,6 +1502,24 @@ h2 em {
 	}
 	.idea-form-wrap {
 		margin-top: 38px;
+	}
+	.newsletter {
+		display: block;
+		padding-bottom: 64px;
+		padding-top: 64px;
+	}
+	.newsletter h2 {
+		margin-top: 34px;
+	}
+	.newsletter-form-wrap {
+		margin-top: 38px;
+	}
+	.newsletter-input-row {
+		align-items: stretch;
+		flex-direction: column;
+	}
+	.newsletter .submit-button {
+		width: fit-content;
 	}
 	.site-footer {
 		align-items: flex-start;

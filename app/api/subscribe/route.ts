@@ -1,0 +1,88 @@
+import { NextResponse } from "next/server";
+import { Resend } from "resend";
+
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+export async function POST(request: Request) {
+	try {
+		const body = await request.json();
+		const email = typeof body.email === "string" ? body.email.trim() : "";
+		const website = typeof body.website === "string" ? body.website.trim() : "";
+
+		if (website) {
+			return NextResponse.json({ ok: true });
+		}
+		if (!emailPattern.test(email) || email.length > 320) {
+			return NextResponse.json(
+				{ error: "Please enter a valid email address." },
+				{ status: 400 },
+			);
+		}
+
+		const apiKey = process.env.RESEND_API_KEY;
+		const audienceId = process.env.RESEND_AUDIENCE_ID;
+		const fromAddress =
+			process.env.NEWSLETTER_FROM_EMAIL || process.env.IDEA_FROM_EMAIL;
+		if (!apiKey || !audienceId || !fromAddress) {
+			return NextResponse.json(
+				{ error: "The mailing list is not configured yet." },
+				{ status: 503 },
+			);
+		}
+
+		const resend = new Resend(apiKey);
+		const { data: existingContact, error: lookupError } =
+			await resend.contacts.get({
+				audienceId,
+				id: email,
+			});
+		if (existingContact) {
+			return NextResponse.json({
+				ok: true,
+				alreadySubscribed: true,
+				message: "This email is already on the list.",
+			});
+		}
+		if (lookupError && lookupError.statusCode !== 404) {
+			throw new Error(lookupError.message);
+		}
+
+		const { error } = await resend.contacts.create({
+			email,
+			audienceId,
+			unsubscribed: false,
+		});
+		if (
+			error &&
+			(error.statusCode === 409 ||
+				/already exists|already subscribed|contact.*exist/i.test(error.message))
+		) {
+			return NextResponse.json({
+				ok: true,
+				alreadySubscribed: true,
+				message: "This email is already on the list.",
+			});
+		}
+		if (error) {
+			throw new Error(error.message);
+		}
+
+		const { error: emailError } = await resend.emails.send({
+			from: fromAddress,
+			to: [email],
+			subject: "You are on the JP Technology list",
+			text: "Thanks for joining the JP Technology list. We will send occasional notes about useful tools, new products, and the work behind them. You can unsubscribe from any future update.",
+		});
+		if (emailError) throw new Error(emailError.message);
+
+		return NextResponse.json({
+			ok: true,
+			message: "You are on the list. Check your inbox for a confirmation.",
+		});
+	} catch {
+		return NextResponse.json(
+			{ error: "We could not add you right now. Please try again." },
+			{ status: 500 },
+		);
+	}
+}

@@ -98,24 +98,17 @@ function Module({
 }) {
 	const bodyMaterialRef = useRef<MeshStandardMaterial>(null);
 	const outlineMaterialRef = useRef<MeshBasicMaterial>(null);
-	const indicatorMaterialRef = useRef<MeshBasicMaterial>(null);
 	const moduleRef = useRef<Group>(null);
 	const bodyTargetColor = useRef(new Color("#18231f"));
 	const outlineTargetColor = useRef(new Color("#435148"));
-	const indicatorTargetColor = useRef(new Color("#435148"));
 
 	useFrame((_, delta) => {
 		const blend = 1 - Math.exp(-delta * 8);
 		bodyTargetColor.current.set(selected ? "#ff765f" : "#18231f");
 		outlineTargetColor.current.set(selected ? "#ff765f" : "#435148");
-		indicatorTargetColor.current.set(selected ? "#ff765f" : "#435148");
 
 		bodyMaterialRef.current?.color.lerp(bodyTargetColor.current, blend);
 		outlineMaterialRef.current?.color.lerp(outlineTargetColor.current, blend);
-		indicatorMaterialRef.current?.color.lerp(
-			indicatorTargetColor.current,
-			blend,
-		);
 		if (bodyMaterialRef.current) {
 			bodyMaterialRef.current.emissiveIntensity +=
 				((selected ? 0.45 : 0) - bodyMaterialRef.current.emissiveIntensity) *
@@ -157,14 +150,6 @@ function Module({
 					wireframe
 					transparent
 					opacity={0.65}
-				/>
-			</mesh>
-			<mesh position={[0, 0, 0.32]}>
-				<boxGeometry args={[0.2, 0.2, 0.025]} />
-				<meshBasicMaterial
-					ref={indicatorMaterialRef}
-					color="#435148"
-					wireframe
 				/>
 			</mesh>
 		</group>
@@ -248,7 +233,7 @@ export function ProductsConceptVisual() {
 				/>
 			</Canvas>
 			<div className="products-visual-caption">
-				HARDWARE / SOFTWARE / SIGNAL · AUTO HIGHLIGHT · DRAG / SWIPE TO ROTATE
+				HARDWARE / SOFTWARE / SIGNAL · DRAG / SWIPE TO ROTATE
 			</div>
 		</div>
 	);

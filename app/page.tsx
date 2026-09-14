@@ -8,6 +8,10 @@ export default function Home() {
 	const [submitted, setSubmitted] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [submitError, setSubmitError] = useState("");
+	const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
+	const [newsletterMessage, setNewsletterMessage] = useState("");
+	const [isNewsletterSubmitting, setIsNewsletterSubmitting] = useState(false);
+	const [newsletterError, setNewsletterError] = useState("");
 
 	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -34,6 +38,35 @@ export default function Home() {
 			);
 		} finally {
 			setIsSubmitting(false);
+		}
+	}
+
+	async function handleNewsletterSubmit(event: FormEvent<HTMLFormElement>) {
+		event.preventDefault();
+		setIsNewsletterSubmitting(true);
+		setNewsletterError("");
+		const form = event.currentTarget;
+		const formData = new FormData(form);
+
+		try {
+			const response = await fetch("/api/subscribe", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					email: formData.get("newsletter-email"),
+					website: formData.get("website"),
+				}),
+			});
+			const result = await response.json();
+			if (!response.ok) throw new Error(result.error);
+			setNewsletterMessage(result.message);
+			setNewsletterSubmitted(true);
+		} catch (error) {
+			setNewsletterError(
+				error instanceof Error ? error.message : "Please try again.",
+			);
+		} finally {
+			setIsNewsletterSubmitting(false);
 		}
 	}
 
@@ -96,11 +129,11 @@ export default function Home() {
 			</section>
 			<section className="ticker" aria-label="Company principles">
 				<div>Start with the problem</div>
-				<span>✳</span>
+				<span className="ticker-mark" aria-hidden="true" />
 				<div>Make complexity useful</div>
-				<span>✳</span>
+				<span className="ticker-mark" aria-hidden="true" />
 				<div>Build for the real world</div>
-				<span>✳</span>
+				<span className="ticker-mark" aria-hidden="true" />
 				<div>Leave a clear interface</div>
 			</section>
 			<section className="about section-wrap" id="about">
@@ -137,9 +170,7 @@ export default function Home() {
 					</div>
 				</div>
 				<div className="products-empty-state">
-					<span className="products-empty-mark" aria-hidden="true">
-						✳
-					</span>
+					<span className="products-empty-mark" aria-hidden="true" />
 					<div>
 						<h3>Hard at work.</h3>
 						<p>
@@ -153,9 +184,9 @@ export default function Home() {
 				<div className="idea-heading">
 					<div className="section-label">[ 03 / Open brief ]</div>
 					<h2>
-						What is getting
+						What's your
 						<br />
-						in the way?
+						biggest struggle?
 					</h2>
 					<p>
 						Bring us the stubborn workflow, the rough sketch, or the part of the
@@ -165,7 +196,7 @@ export default function Home() {
 				<div className="idea-form-wrap">
 					{submitted ? (
 						<div className="success-message">
-							<span>✳</span>
+							<span aria-hidden="true" />
 							<h3>Thanks for trusting us with it.</h3>
 							<p>
 								Your problem is in the right place. We will be in touch soon.
@@ -206,6 +237,61 @@ export default function Home() {
 								{isSubmitting ? "Sending..." : "Send the brief"}{" "}
 								<span aria-hidden="true">↗</span>
 							</button>
+						</form>
+					)}
+				</div>
+			</section>
+			<section className="newsletter section-wrap" id="updates">
+				<div>
+					<div className="section-label">[ 04 / Field notes ]</div>
+					<h2>New Tech News</h2>
+					<p>
+						Sign up for notes from our projects, new tools, and the ideas that
+						make it out into the world.
+					</p>
+				</div>
+				<div className="newsletter-form-wrap">
+					{newsletterSubmitted ? (
+						<div className="newsletter-success" role="status">
+							<span aria-hidden="true" />
+							<p>{newsletterMessage}</p>
+						</div>
+					) : (
+						<form onSubmit={handleNewsletterSubmit}>
+							<label htmlFor="newsletter-email">Your email</label>
+							<div className="newsletter-input-row">
+								<input
+									id="newsletter-email"
+									name="newsletter-email"
+									type="email"
+									required
+									placeholder="you@company.com"
+								/>
+								<input
+									aria-hidden="true"
+									autoComplete="off"
+									className="website-field"
+									name="website"
+									tabIndex={-1}
+									type="text"
+								/>
+								<button
+									className="submit-button"
+									disabled={isNewsletterSubmitting}
+									type="submit"
+								>
+									{isNewsletterSubmitting ? "Joining..." : "Join the list"}{" "}
+									<span aria-hidden="true">↗</span>
+								</button>
+							</div>
+							<p className="newsletter-consent">
+								Occasional updates only. Unsubscribe whenever you like.
+							</p>
+							{newsletterError && (
+								<p className="form-error" role="alert">
+									{newsletterError}
+								</p>
+							)}
 						</form>
 					)}
 				</div>

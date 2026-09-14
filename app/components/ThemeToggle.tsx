@@ -46,8 +46,8 @@ export function ThemeToggle() {
 			aria-pressed={isLight}
 			onClick={toggleTheme}
 		>
-			<span className="theme-toggle-track">
-				<span className="theme-toggle-thumb">{isLight ? "☼" : "☾"}</span>
+			<span className="theme-toggle-track" aria-hidden="true">
+				<span className="theme-toggle-thumb">{isLight ? "L" : "D"}</span>
 			</span>
 			<span className="theme-toggle-label">{isLight ? "Light" : "Dark"}</span>
 		</button>
