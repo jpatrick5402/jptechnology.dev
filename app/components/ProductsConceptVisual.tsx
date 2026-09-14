@@ -9,14 +9,13 @@ import {
 	Quaternion,
 	Vector3,
 	type Group,
-	type Mesh,
 	type MeshBasicMaterial,
 	type MeshStandardMaterial,
 } from "three";
 
 function SystemModel({ selectedModule }: { selectedModule: number }) {
 	const groupRef = useRef<Group>(null);
-	const coreRef = useRef<Mesh>(null);
+	const coreRef = useRef<Group>(null);
 	const reduceMotion = useReducedMotion();
 
 	useFrame((state, delta) => {
@@ -32,24 +31,26 @@ function SystemModel({ selectedModule }: { selectedModule: number }) {
 
 	return (
 		<group ref={groupRef} rotation={[0.18, -0.35, 0]}>
-			<mesh ref={coreRef}>
-				<icosahedronGeometry args={[0.68, 1]} />
-				<meshStandardMaterial
-					color="#d9f95b"
-					emissive="#65751f"
-					emissiveIntensity={0.35}
-					flatShading
-				/>
-			</mesh>
-			<mesh position={[0, 0, -0.08]} scale={1.35}>
-				<icosahedronGeometry args={[0.68, 1]} />
-				<meshBasicMaterial
-					color="#d9f95b"
-					transparent
-					opacity={0.1}
-					wireframe
-				/>
-			</mesh>
+			<group ref={coreRef}>
+				<mesh>
+					<icosahedronGeometry args={[0.68, 1]} />
+					<meshStandardMaterial
+						color="#d9f95b"
+						emissive="#65751f"
+						emissiveIntensity={0.35}
+						flatShading
+					/>
+				</mesh>
+				<mesh scale={1.35}>
+					<icosahedronGeometry args={[0.68, 1]} />
+					<meshBasicMaterial
+						color="#d9f95b"
+						transparent
+						opacity={0.1}
+						wireframe
+					/>
+				</mesh>
+			</group>
 			<Module position={[0.9, 0.9, 0.9]} selected={selectedModule === 0} />
 			<Module
 				position={[0.9, -0.9, -0.9]}
