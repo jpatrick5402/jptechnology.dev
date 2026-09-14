@@ -1,10 +1,8 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import Link from "next/link";
 import { EngineeringArchitectureDiagram } from "./components/EngineeringArchitectureDiagram";
 import { ThemeToggle } from "./components/ThemeToggle";
-import { products } from "./data/products";
 
 export default function Home() {
 	const [submitted, setSubmitted] = useState(false);
@@ -60,20 +58,33 @@ export default function Home() {
 			<section className="hero section-wrap" id="top">
 				<div className="hero-copy">
 					<p className="eyebrow">
-						<span className="live-dot" /> Independent technology studio / 2026
+						<span className="live-dot" /> For people doing work that does not
+						fit a template.
 					</p>
 					<h1>
-						Make the
-						<br />
-						<em>hard things</em>
-						<br />
-						work
-						<br />
-						for you.
+						<span className="path-step">
+							<em>Real</em>
+							<span>People</span>
+						</span>
+						<span className="path-arrow" aria-hidden="true">
+							→
+						</span>
+						<span className="path-step">
+							<em>Tough</em>
+							<span>Problems</span>
+						</span>
+						<span className="path-arrow" aria-hidden="true">
+							→
+						</span>
+						<span className="path-step">
+							<em>Useful</em>
+							<span>Solutions</span>
+						</span>
 					</h1>
 					<p className="hero-intro">
-						JP Technology Development LLC designs and builds focused hardware
-						and software for problems that do not fit inside a template.
+						JP Technology builds hardware and software alongside the people
+						closest to the problem, turning complicated work into something
+						clearer, calmer, and more useful.
 					</p>
 					<a className="text-link" href="#products">
 						Explore our work <span aria-hidden="true">↓</span>
@@ -94,17 +105,17 @@ export default function Home() {
 				<div className="section-label">[ 01 / About ]</div>
 				<div className="about-content">
 					<h2>
-						Good technology makes hard work feel <span>possible.</span>
+						Good technology gives people room to do their{" "}
+						<span>best work.</span>
 					</h2>
 					<div className="about-text">
 						<p>
-							We are a small, focused team building the systems that sit between
-							a messy problem and a working answer.
+							We are a small, focused team building with the people who live
+							with the problem every day.
 						</p>
 						<p>
-							That means staying close to the constraints, making the
-							complicated legible, and shipping things people are genuinely glad
-							to use.
+							That means listening closely, respecting real constraints, and
+							making complicated work feel more legible and less lonely.
 						</p>
 						<a className="text-link" href="#idea">
 							Start a conversation <span aria-hidden="true">↗</span>
@@ -116,51 +127,45 @@ export default function Home() {
 				<div className="section-heading">
 					<div className="section-label">[ 02 / Products ]</div>
 					<p>
-						Working systems. Useful experiments.
-						<br />A growing toolkit.
+						Tools for the work in front of you.
+						<br />
+						Built around how people really work.
 					</p>
 				</div>
-				<div className="product-list">
-					{products.map((product) => (
-						<Link
-							className="product-row"
-							href={`/products/${product.slug}`}
-							key={product.number}
-						>
-							<span className="product-number">{product.number}</span>
-							<h3>{product.name}</h3>
-							<p>{product.description}</p>
-							<div className="product-tags">
-								{product.tags.map((tag) => (
-									<span key={tag}>{tag}</span>
-								))}
-							</div>
-							<span className="product-arrow" aria-hidden="true">
-								↗
-							</span>
-						</Link>
-					))}
+				<div className="products-empty-state">
+					<span className="products-empty-mark" aria-hidden="true">
+						✳
+					</span>
+					<div>
+						<h3>Hard at work.</h3>
+						<p>
+							Nothing released yet. We are building the right things for the
+							work ahead.
+						</p>
+					</div>
 				</div>
 			</section>
 			<section className="idea section-wrap" id="idea">
 				<div className="idea-heading">
 					<div className="section-label">[ 03 / Open brief ]</div>
 					<h2>
-						Have a problem
+						What is getting
 						<br />
-						worth <em>building through?</em>
+						in the way?
 					</h2>
 					<p>
-						Bring us the stubborn workflow, the rough sketch, or the question
-						that needs more than another off-the-shelf tool.
+						Bring us the stubborn workflow, the rough sketch, or the part of the
+						day that keeps asking too much of the people doing the work.
 					</p>
 				</div>
 				<div className="idea-form-wrap">
 					{submitted ? (
 						<div className="success-message">
 							<span>✳</span>
-							<h3>That is a good one.</h3>
-							<p>Your idea is in the right place. We will be in touch soon.</p>
+							<h3>Thanks for trusting us with it.</h3>
+							<p>
+								Your problem is in the right place. We will be in touch soon.
+							</p>
 							<button type="button" onClick={() => setSubmitted(false)}>
 								Send another idea
 							</button>
@@ -208,7 +213,7 @@ export default function Home() {
 						Technology<span className="wordmark-dot">.</span>dev
 					</span>
 				</a>
-				<p>© 2026 JP Technology. Hardware and software for work worth doing.</p>
+				<p>© 2026 JP Technology. Better tools for difficult work.</p>
 				<a href="mailto:hello@jptechnology.dev">
 					hello@jptechnology.dev <span aria-hidden="true">↗</span>
 				</a>

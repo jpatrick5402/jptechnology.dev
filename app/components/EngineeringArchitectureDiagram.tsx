@@ -1,39 +1,54 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { products } from "../data/products";
 
-const MotionLink = motion.create(Link);
+const developmentStages = [
+	{
+		number: "01",
+		name: "Listen",
+		kicker: "Start with the people",
+		status: "In progress",
+	},
+	{
+		number: "02",
+		name: "Shape",
+		kicker: "Make the problem clear",
+		status: "In progress",
+	},
+	{
+		number: "03",
+		name: "Build",
+		kicker: "Put useful tools to work",
+		status: "Next up",
+	},
+] as const;
 
 function ArchitectureModule({
-	product,
+	stage,
 	index,
 	reduceMotion,
 }: {
-	product: (typeof products)[number];
+	stage: (typeof developmentStages)[number];
 	index: number;
 	reduceMotion: boolean | null;
 }) {
 	const side = index % 2 === 0 ? "module-left" : "module-right";
 
 	return (
-		<MotionLink
+		<motion.div
 			className={`architecture-module ${side}`}
-			href={`/products/${product.slug}`}
-			aria-label={`View ${product.name} product page`}
 			whileHover={reduceMotion ? undefined : { y: -3 }}
 			whileTap={reduceMotion ? undefined : { scale: 0.98 }}
 		>
 			<span className="module-signal" />
-			<span className="module-index">{product.number}</span>
+			<span className="module-index">{stage.number}</span>
 			<span className="module-copy">
-				<strong>{product.name}</strong>
-				<small>{product.kicker}</small>
-				<span className="module-status">{product.status}</span>
+				<strong>{stage.name}</strong>
+				<small>{stage.kicker}</small>
+				<span className="module-status">{stage.status}</span>
 			</span>
-		</MotionLink>
+		</motion.div>
 	);
 }
 
@@ -44,13 +59,11 @@ export function EngineeringArchitectureDiagram() {
 	const bodyRef = useRef<HTMLDivElement>(null);
 	const modulesRef = useRef<HTMLDivElement>(null);
 	const coreRef = useRef<HTMLButtonElement>(null);
-	const moduleRows = Math.ceil(products.length / 2);
-	const moduleFieldHeight = products.length
-		? 120 + moduleRows * 72 + Math.max(0, moduleRows - 1) * 14
-		: 120;
-	const moduleFieldHeightMobile = products.length
-		? 86 + moduleRows * 60 + Math.max(0, moduleRows - 1) * 8
-		: 86;
+	const moduleRows = Math.ceil(developmentStages.length / 2);
+	const moduleFieldHeight =
+		120 + moduleRows * 72 + Math.max(0, moduleRows - 1) * 14;
+	const moduleFieldHeightMobile =
+		86 + moduleRows * 60 + Math.max(0, moduleRows - 1) * 8;
 	const moduleBottomOffset = 28;
 	const moduleBottomOffsetMobile = 24;
 	const diagramStyle = {
@@ -96,7 +109,7 @@ export function EngineeringArchitectureDiagram() {
 			resizeObserver.disconnect();
 			window.removeEventListener("resize", updateBusLength);
 		};
-	}, [products.length]);
+	}, []);
 
 	function pulseSystem() {
 		if (reduceMotion) return;
@@ -114,15 +127,15 @@ export function EngineeringArchitectureDiagram() {
 		>
 			<div className="architecture-header">
 				<span>LIVE PROJECT TRACKING</span>
-				<span>{String(products.length).padStart(2, "0")} MODULES / ONLINE</span>
+				<span>03 DEVELOPMENT STAGES</span>
 			</div>
 			<div className="architecture-body" ref={bodyRef}>
 				<div className="architecture-bus" aria-hidden="true" />
 				<div className="architecture-modules" ref={modulesRef}>
-					{products.map((product, index) => (
+					{developmentStages.map((stage, index) => (
 						<ArchitectureModule
-							key={product.slug}
-							product={product}
+							key={stage.number}
+							stage={stage}
 							index={index}
 							reduceMotion={reduceMotion}
 						/>
@@ -142,7 +155,7 @@ export function EngineeringArchitectureDiagram() {
 			<div className="architecture-footer">
 				<span>INTERFACES / HARDWARE + SOFTWARE</span>
 				<span className="architecture-live">
-					<i /> SYSTEM READY
+					<i /> SYSTEM IN DEVELOPMENT
 				</span>
 			</div>
 		</div>

@@ -1,22 +1,41 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
+
+const themeStorageKey = "jp-theme";
+const themeChangeEvent = "jp-theme-change";
+
+function getTheme() {
+	return (
+		typeof window !== "undefined" &&
+		window.localStorage.getItem(themeStorageKey) === "light"
+	);
+}
+
+function subscribeToTheme(callback: () => void) {
+	window.addEventListener("storage", callback);
+	window.addEventListener(themeChangeEvent, callback);
+	return () => {
+		window.removeEventListener("storage", callback);
+		window.removeEventListener(themeChangeEvent, callback);
+	};
+}
 
 export function ThemeToggle() {
-	const [isLight, setIsLight] = useState(false);
+	const isLight = useSyncExternalStore(subscribeToTheme, getTheme, () => false);
 
 	useEffect(() => {
-		const savedTheme = window.localStorage.getItem("jp-theme");
-		const light = savedTheme === "light";
-		setIsLight(light);
-		document.documentElement.dataset.theme = light ? "light" : "dark";
-	}, []);
+		document.documentElement.dataset.theme = isLight ? "light" : "dark";
+	}, [isLight]);
 
 	function toggleTheme() {
 		const nextIsLight = !isLight;
-		setIsLight(nextIsLight);
 		document.documentElement.dataset.theme = nextIsLight ? "light" : "dark";
-		window.localStorage.setItem("jp-theme", nextIsLight ? "light" : "dark");
+		window.localStorage.setItem(
+			themeStorageKey,
+			nextIsLight ? "light" : "dark",
+		);
+		window.dispatchEvent(new Event(themeChangeEvent));
 	}
 
 	return (
