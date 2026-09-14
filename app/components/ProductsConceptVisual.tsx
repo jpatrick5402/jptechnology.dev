@@ -14,7 +14,6 @@ import {
 	type MeshStandardMaterial,
 } from "three";
 
-
 function SystemModel({ selectedModule }: { selectedModule: number }) {
 	const groupRef = useRef<Group>(null);
 	const coreRef = useRef<Mesh>(null);
@@ -23,7 +22,8 @@ function SystemModel({ selectedModule }: { selectedModule: number }) {
 	useFrame((state, delta) => {
 		if (!groupRef.current || reduceMotion) return;
 		groupRef.current.rotation.y += delta * 0.16;
-		groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.35) * 0.04;
+		groupRef.current.rotation.x =
+			Math.sin(state.clock.elapsedTime * 0.35) * 0.04;
 		if (coreRef.current) {
 			const pulse = 1 + Math.sin(state.clock.elapsedTime * 1.8) * 0.06;
 			coreRef.current.scale.setScalar(pulse);
@@ -34,20 +34,54 @@ function SystemModel({ selectedModule }: { selectedModule: number }) {
 		<group ref={groupRef} rotation={[0.18, -0.35, 0]}>
 			<mesh ref={coreRef}>
 				<icosahedronGeometry args={[0.68, 1]} />
-				<meshStandardMaterial color="#d9f95b" emissive="#65751f" emissiveIntensity={0.35} flatShading />
+				<meshStandardMaterial
+					color="#d9f95b"
+					emissive="#65751f"
+					emissiveIntensity={0.35}
+					flatShading
+				/>
 			</mesh>
 			<mesh position={[0, 0, -0.08]} scale={1.35}>
 				<icosahedronGeometry args={[0.68, 1]} />
-				<meshBasicMaterial color="#d9f95b" transparent opacity={0.1} wireframe />
+				<meshBasicMaterial
+					color="#d9f95b"
+					transparent
+					opacity={0.1}
+					wireframe
+				/>
 			</mesh>
 			<Module position={[0.9, 0.9, 0.9]} selected={selectedModule === 0} />
-			<Module position={[0.9, -0.9, -0.9]} rotation={[0, Math.PI / 2, 0]} selected={selectedModule === 1} />
-			<Module position={[-0.9, 0.9, -0.9]} rotation={[0, Math.PI / 2, 0]} selected={selectedModule === 2} />
+			<Module
+				position={[0.9, -0.9, -0.9]}
+				rotation={[0, Math.PI / 2, 0]}
+				selected={selectedModule === 1}
+			/>
+			<Module
+				position={[-0.9, 0.9, -0.9]}
+				rotation={[0, Math.PI / 2, 0]}
+				selected={selectedModule === 2}
+			/>
 			<Module position={[-0.9, -0.9, 0.9]} selected={selectedModule === 3} />
-			<Connection start={[0.9, 0.9, 0.9]} end={[0, 0, 0]} color={selectedModule === 0 ? "#ff765f" : "#435148"} />
-			<Connection start={[0.9, -0.9, -0.9]} end={[0, 0, 0]} color={selectedModule === 1 ? "#ff765f" : "#435148"} />
-			<Connection start={[-0.9, 0.9, -0.9]} end={[0, 0, 0]} color={selectedModule === 2 ? "#ff765f" : "#435148"} />
-			<Connection start={[-0.9, -0.9, 0.9]} end={[0, 0, 0]} color={selectedModule === 3 ? "#ff765f" : "#435148"} />
+			<Connection
+				start={[0.9, 0.9, 0.9]}
+				end={[0, 0, 0]}
+				color={selectedModule === 0 ? "#ff765f" : "#435148"}
+			/>
+			<Connection
+				start={[0.9, -0.9, -0.9]}
+				end={[0, 0, 0]}
+				color={selectedModule === 1 ? "#ff765f" : "#435148"}
+			/>
+			<Connection
+				start={[-0.9, 0.9, -0.9]}
+				end={[0, 0, 0]}
+				color={selectedModule === 2 ? "#ff765f" : "#435148"}
+			/>
+			<Connection
+				start={[-0.9, -0.9, 0.9]}
+				end={[0, 0, 0]}
+				color={selectedModule === 3 ? "#ff765f" : "#435148"}
+			/>
 		</group>
 	);
 }
