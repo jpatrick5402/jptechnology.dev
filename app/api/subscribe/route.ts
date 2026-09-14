@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { createUnsubscribeUrl } from "../unsubscribe/route";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -66,12 +67,19 @@ export async function POST(request: Request) {
 		if (error) {
 			throw new Error(error.message);
 		}
+		const unsubscribeUrl = createUnsubscribeUrl(
+			email,
+			new URL(request.url).origin,
+		);
+		if (!unsubscribeUrl) {
+			throw new Error("Newsletter unsubscribe links are not configured.");
+		}
 
 		const { error: emailError } = await resend.emails.send({
 			from: fromAddress,
 			to: [email],
 			subject: "You are on the JP Technology list",
-			text: "Thanks for joining the JP Technology list. We will send occasional notes about useful tools, new products, and the work behind them. You can unsubscribe from any future update.",
+			text: `Thanks for joining the JP Technology list. We will send occasional notes about useful tools, new products, and the work behind them.\n\nUnsubscribe: ${unsubscribeUrl}`,
 		});
 		if (emailError) throw new Error(emailError.message);
 

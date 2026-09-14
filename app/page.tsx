@@ -184,7 +184,7 @@ export default function Home() {
 				<div className="idea-heading">
 					<div className="section-label">[ 03 / Open brief ]</div>
 					<h2>
-						What's your
+						What&apos;s your
 						<br />
 						biggest struggle?
 					</h2>
