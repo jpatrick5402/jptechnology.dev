@@ -38,34 +38,47 @@ export async function POST(request: Request) {
 				id: email,
 			});
 		if (existingContact) {
-			return NextResponse.json({
-				ok: true,
-				alreadySubscribed: true,
-				message: "This email is already on the list.",
+			if (!existingContact.unsubscribed) {
+				return NextResponse.json({
+					ok: true,
+					alreadySubscribed: true,
+					message: "This email is already on the list.",
+				});
+			}
+
+			const { error: resubscribeError } = await resend.contacts.update({
+				audienceId,
+				email,
+				unsubscribed: false,
 			});
+			if (resubscribeError) throw new Error(resubscribeError.message);
 		}
 		if (lookupError && lookupError.statusCode !== 404) {
 			throw new Error(lookupError.message);
 		}
 
-		const { error } = await resend.contacts.create({
-			email,
-			audienceId,
-			unsubscribed: false,
-		});
-		if (
-			error &&
-			(error.statusCode === 409 ||
-				/already exists|already subscribed|contact.*exist/i.test(error.message))
-		) {
-			return NextResponse.json({
-				ok: true,
-				alreadySubscribed: true,
-				message: "This email is already on the list.",
+		if (!existingContact) {
+			const { error } = await resend.contacts.create({
+				email,
+				audienceId,
+				unsubscribed: false,
 			});
-		}
-		if (error) {
-			throw new Error(error.message);
+			if (
+				error &&
+				(error.statusCode === 409 ||
+					/already exists|already subscribed|contact.*exist/i.test(
+						error.message,
+					))
+			) {
+				return NextResponse.json({
+					ok: true,
+					alreadySubscribed: true,
+					message: "This email is already on the list.",
+				});
+			}
+			if (error) {
+				throw new Error(error.message);
+			}
 		}
 		const unsubscribeUrl = createUnsubscribeUrl(
 			email,
@@ -85,7 +98,9 @@ export async function POST(request: Request) {
 
 		return NextResponse.json({
 			ok: true,
-			message: "You are on the list. Check your inbox for a confirmation.",
+			message: existingContact
+				? "You are back on the list. Check your inbox for a confirmation."
+				: "You are on the list. Check your inbox for a confirmation.",
 		});
 	} catch {
 		return NextResponse.json(
