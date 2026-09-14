@@ -170,11 +170,11 @@ p {
 	margin-top: 0;
 }
 h1 {
-	font-size: clamp(56px, 8vw, 118px);
+	font-size: clamp(52px, 7.1vw, 104px);
 	font-weight: 600;
 	letter-spacing: -0.1em;
 	line-height: 0.83;
-	margin: 36px 0 34px -6px;
+	margin: 36px 0 34px;
 }
 h1 .path-step,
 h1 .path-arrow {
@@ -223,6 +223,17 @@ h2 em {
 .hero-copy {
 	align-self: center;
 	padding-bottom: 22px;
+}
+.hero-visual {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	transform: translateY(-20px);
+}
+.hero-visual .products-heading-visual {
+	height: min(45vw, 520px);
+	min-height: 420px;
+	width: min(45vw, 520px);
 }
 .circuit-board {
 	background: var(--deep);
@@ -960,14 +971,55 @@ h2 em {
 }
 .section-heading {
 	display: flex;
+	gap: 40px;
 	justify-content: space-between;
 	margin-bottom: 55px;
+}
+.section-heading-copy {
+	display: flex;
+	flex: 1;
+	justify-content: space-between;
 }
 .section-heading p {
 	color: var(--muted-strong);
 	font-size: 14px;
 	line-height: 1.4;
 	margin: 0;
+	text-align: right;
+}
+.products-heading-visual {
+	height: min(30vw, 320px);
+	min-height: 250px;
+	position: relative;
+	width: min(30vw, 320px);
+}
+.products-heading-visual canvas {
+	cursor: grab;
+	position: absolute !important;
+	inset: 0;
+}
+.products-heading-visual canvas:active {
+	cursor: grabbing;
+}
+.products-visual-label,
+.products-visual-caption {
+	color: var(--muted-faint);
+	font-family: var(--mono);
+	font-size: 9px;
+	letter-spacing: 0.08em;
+	position: absolute;
+	text-transform: uppercase;
+	z-index: 1;
+}
+.products-visual-label {
+	left: 16px;
+	top: 14px;
+}
+.products-visual-caption {
+	bottom: 14px;
+	font-size: 10px;
+	max-width: 92%;
+	right: 16px;
 	text-align: right;
 }
 .products-empty-state {
@@ -1204,7 +1256,7 @@ h2 em {
 	h1 {
 		font-size: clamp(44px, 13vw, 68px);
 		line-height: 0.88;
-		margin: 32px 0 30px -3px;
+		margin: 32px 0 30px;
 	}
 	h1 .path-arrow {
 		font-size: 0.31em;
@@ -1216,6 +1268,15 @@ h2 em {
 	.hero-art {
 		height: 350px;
 		margin-top: 60px;
+	}
+	.hero-visual {
+		margin-top: 8px;
+		transform: none;
+	}
+	.hero-visual .products-heading-visual {
+		height: min(88vw, 360px);
+		min-height: 320px;
+		width: min(88vw, 360px);
 	}
 	.circuit-board {
 		height: 350px;
@@ -1294,9 +1355,18 @@ h2 em {
 	.section-heading {
 		display: block;
 	}
+	.section-heading-copy {
+		display: block;
+	}
 	.section-heading p {
 		margin-top: 18px;
 		text-align: left;
+	}
+	.products-heading-visual {
+		height: 260px;
+		margin-top: 28px;
+		min-height: 0;
+		width: 100%;
 	}
 	.product-row {
 		gap: 14px;

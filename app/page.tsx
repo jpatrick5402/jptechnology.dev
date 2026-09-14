@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { EngineeringArchitectureDiagram } from "./components/EngineeringArchitectureDiagram";
+import { ProductsConceptVisual } from "./components/ProductsConceptVisual";
 import { ThemeToggle } from "./components/ThemeToggle";
 
 export default function Home() {
@@ -90,7 +90,9 @@ export default function Home() {
 						Explore our work <span aria-hidden="true">↓</span>
 					</a>
 				</div>
-				<EngineeringArchitectureDiagram />
+				<div className="hero-visual">
+					<ProductsConceptVisual />
+				</div>
 			</section>
 			<section className="ticker" aria-label="Company principles">
 				<div>Start with the problem</div>
@@ -125,12 +127,14 @@ export default function Home() {
 			</section>
 			<section className="products section-wrap" id="products">
 				<div className="section-heading">
-					<div className="section-label">[ 02 / Products ]</div>
-					<p>
-						Tools for the work in front of you.
-						<br />
-						Built around how people really work.
-					</p>
+					<div className="section-heading-copy">
+						<div className="section-label">[ 02 / Products ]</div>
+						<p>
+							Tools for the work in front of you.
+							<br />
+							Built around how people really work.
+						</p>
+					</div>
 				</div>
 				<div className="products-empty-state">
 					<span className="products-empty-mark" aria-hidden="true">
