@@ -85,6 +85,9 @@ a {
 	gap: 30px;
 	text-transform: uppercase;
 }
+.mobile-menu-toggle {
+	display: none;
+}
 .nav-links a:not(.nav-cta),
 .text-link,
 .site-footer a {
@@ -1341,18 +1344,73 @@ h2 em {
 		width: min(100% - 36px, 600px);
 	}
 	.site-nav {
+		flex-wrap: wrap;
 		padding: 20px 0;
+		position: relative;
 	}
 	.nav-links {
-		gap: 14px;
-	}
-	.nav-links a:not(.nav-cta) {
+		background: var(--paper);
+		border-bottom: 1px solid var(--line);
+		border-top: 1px solid var(--line);
 		display: none;
+		flex-direction: column;
+		gap: 0;
+		left: 0;
+		padding: 8px 0;
+		position: absolute;
+		right: 0;
+		top: 100%;
+		z-index: 10;
+	}
+	.nav-links.is-open {
+		display: flex;
+		flex-basis: 100%;
+		position: static;
+	}
+	.nav-links a:not(.nav-cta),
+	.nav-links .theme-toggle {
+		padding: 12px 0;
+		width: 100%;
+	}
+	.nav-links .nav-cta {
+		margin-top: 8px;
+		text-align: center;
+		width: 100%;
+	}
+	.mobile-menu-toggle {
+		align-items: center;
+		background: transparent;
+		border: 0;
+		cursor: pointer;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		padding: 8px 0 8px 8px;
+	}
+	.mobile-menu-toggle > span:not(.sr-only) {
+		background: var(--ink);
+		display: block;
+		height: 1px;
+		width: 22px;
+	}
+	.sr-only {
+		border: 0;
+		clip: rect(0, 0, 0, 0);
+		height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		padding: 0;
+		position: absolute;
+		white-space: nowrap;
+		width: 1px;
 	}
 	.hero {
 		display: block;
 		min-height: auto;
 		padding: 34px 0 52px;
+	}
+	.hero-copy {
+		padding-top: 12px;
 	}
 	h1 {
 		font-size: clamp(44px, 13vw, 68px);

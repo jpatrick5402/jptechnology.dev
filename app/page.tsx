@@ -12,6 +12,7 @@ export default function Home() {
 	const [newsletterMessage, setNewsletterMessage] = useState("");
 	const [isNewsletterSubmitting, setIsNewsletterSubmitting] = useState(false);
 	const [newsletterError, setNewsletterError] = useState("");
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -79,9 +80,25 @@ export default function Home() {
 						Technology<span className="wordmark-dot">.</span>dev
 					</span>
 				</a>
-				<div className="nav-links">
+				<button
+					className="mobile-menu-toggle"
+					type="button"
+					aria-expanded={isMenuOpen}
+					aria-controls="site-navigation-links"
+					onClick={() => setIsMenuOpen((isOpen) => !isOpen)}
+				>
+					<span className="sr-only">Toggle navigation menu</span>
+					<span aria-hidden="true" />
+					<span aria-hidden="true" />
+					<span aria-hidden="true" />
+				</button>
+				<div
+					className={`nav-links${isMenuOpen ? " is-open" : ""}`}
+					id="site-navigation-links"
+				>
 					<a href="#about">About</a>
 					<a href="#products">Products</a>
+					<a href="#updates">Subscribe</a>
 					<ThemeToggle />
 					<a className="nav-cta" href="#idea">
 						Share an idea <span aria-hidden="true">↗</span>
