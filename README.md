@@ -4,7 +4,7 @@ A repository for the JP Technology Development LLC website
 
 ## Environment
 
-Copy `.env.example` to `.env.local` and set the Supabase project URL and server-only service-role key. The service-role key must never be exposed to client components or variables prefixed with `NEXT_PUBLIC_`.
+Copy `.env.example` to `.env.local` and set the Supabase project URL and server-only secret key. In Supabase Dashboard, open **Project Settings → API** and copy the Secret key (or the legacy `service_role` key), not the Publishable/anon key. Set it as `SUPABASE_SECRET_KEY`. The secret key must never be exposed to client components or variables prefixed with `NEXT_PUBLIC_`.
 
 The server client is available from `lib/supabase/server.ts`:
 
