@@ -12,8 +12,22 @@ export interface Initiative {
 
 export const initiatives: Initiative[] = [
 	{
-		slug: "adaptive-tools",
+		slug: "rapid-prototyping",
 		number: "01",
+		title: "Rapid Prototyping",
+		summary:
+			"Taking a product idea straight from the customer and turning it into something real, fast, so ideas can be tested and refined against the real world instead of a slide deck.",
+		tags: ["Prototyping", "Product development"],
+		status: "Exploring",
+		body: [
+			"A lot of good ideas die in the gap between 'what if we built this' and actually holding something in your hands. We want to close that gap: take a customer's idea, however rough, and get a working prototype in front of them as quickly as possible.",
+			"That could be a functional hardware mockup, a working software demo, or a hybrid of both, whatever gets us to something testable the fastest. The goal isn't a polished product on the first pass, it's a real, tangible version of the idea that can be poked at, used, and improved.",
+			"We're building out the process now: how we scope an idea quickly, what tools and techniques let us move fast without cutting corners that matter, and how we hand off a validated prototype to the next stage of development.",
+		],
+	},
+	{
+		slug: "adaptive-tools",
+		number: "02",
 		title: "Adaptive Tools",
 		summary:
 			"Custom, and where it counts personalized, hardware and software that help people with disabilities and special needs handle daily tasks with more independence.",
