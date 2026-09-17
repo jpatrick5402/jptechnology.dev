@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { logSiteAction } from "@/lib/supabase/logSiteAction";
 import { createUnsubscribeUrl } from "../unsubscribe/route";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -95,6 +96,11 @@ export async function POST(request: Request) {
 			text: `Thanks for joining the JP Technology list. We will send occasional notes about useful tools, new products, and the work behind them.\n\nUnsubscribe: ${unsubscribeUrl}`,
 		});
 		if (emailError) throw new Error(emailError.message);
+		await logSiteAction(
+			request,
+			"newsletter_subscribe",
+			"Subscribed to the newsletter",
+		);
 
 		return NextResponse.json({
 			ok: true,

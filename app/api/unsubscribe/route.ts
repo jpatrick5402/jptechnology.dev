@@ -1,6 +1,7 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { logSiteAction } from "@/lib/supabase/logSiteAction";
 
 function getToken(email: string) {
 	const secret = process.env.NEWSLETTER_UNSUBSCRIBE_SECRET;
@@ -64,6 +65,7 @@ export async function GET(request: Request) {
 	if (error && error.statusCode !== 404) {
 		return htmlResponse("We could not update your subscription.", 500);
 	}
+	await logSiteAction(request, "newsletter_unsubscribe", "Unsubscribed from the newsletter");
 
 	return htmlResponse("You have been unsubscribed.");
 }

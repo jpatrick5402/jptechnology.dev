@@ -8,6 +8,14 @@ import { initiatives } from "./initiatives/data";
 
 const SECTION_IDS = ["top", "about", "products", "idea", "updates"];
 
+function logClientAction(action: "page_view" | "section_view", target?: string) {
+		void fetch("/api/log", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ action, target }),
+		}).catch(() => undefined);
+}
+
 export default function Home() {
 	const [submitted, setSubmitted] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -24,6 +32,7 @@ export default function Home() {
 		if (!target) return;
 		target.scrollIntoView({ behavior: "smooth", block: "start" });
 		window.history.replaceState(null, "", `#${id}`);
+		logClientAction("section_view", id);
 		// retrigger the CSS animation even if the same section is clicked twice
 		setHighlightedId("");
 		requestAnimationFrame(() => setHighlightedId(id));
@@ -37,9 +46,10 @@ export default function Home() {
 
 	// jump to and highlight a section when the page loads with a hash in the URL
 	useEffect(() => {
+		logClientAction("page_view");
 		const hash = window.location.hash.replace("#", "");
 		if (hash && SECTION_IDS.includes(hash)) {
-			goToSection(hash);
+			requestAnimationFrame(() => goToSection(hash));
 		}
 	}, []);
 

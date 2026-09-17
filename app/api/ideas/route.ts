@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { logSiteAction } from "@/lib/supabase/logSiteAction";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -40,6 +41,7 @@ export async function POST(request: Request) {
 			text: `A new idea was submitted through jptechnology.dev.\n\nFrom: ${email}\n\nIdea:\n${idea}`,
 		});
 		if (error) throw new Error(error.message);
+		await logSiteAction(request, "idea_submit", "Submitted a technology idea");
 
 		return NextResponse.json({ ok: true });
 	} catch {
