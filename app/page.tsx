@@ -8,12 +8,15 @@ import { initiatives } from "./initiatives/data";
 
 const SECTION_IDS = ["top", "about", "products", "idea", "updates"];
 
-function logClientAction(action: "page_view" | "section_view", target?: string) {
-		void fetch("/api/log", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ action, target }),
-		}).catch(() => undefined);
+function logClientAction(
+	action: "page_view" | "section_view",
+	target?: string,
+) {
+	void fetch("/api/log", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ action, target }),
+	}).catch(() => undefined);
 }
 
 export default function Home() {

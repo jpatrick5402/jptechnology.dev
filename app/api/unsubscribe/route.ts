@@ -65,7 +65,11 @@ export async function GET(request: Request) {
 	if (error && error.statusCode !== 404) {
 		return htmlResponse("We could not update your subscription.", 500);
 	}
-	await logSiteAction(request, "newsletter_unsubscribe", "Unsubscribed from the newsletter");
+	await logSiteAction(
+		request,
+		"newsletter_unsubscribe",
+		"Unsubscribed from the newsletter",
+	);
 
 	return htmlResponse("You have been unsubscribed.");
 }
