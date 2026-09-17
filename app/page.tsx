@@ -204,9 +204,9 @@ export default function Home() {
 						</span>
 					</h1>
 					<p className="hero-intro">
-						JP Technology builds hardware and software alongside the people
-						closest to the problem, turning complicated work into something
-						clearer, calmer, and more useful.
+						JP Technology Development builds hardware and software alongside the
+						people closest to the problem, turning complicated work into
+						something clearer, calmer, and more useful.
 					</p>
 					<a
 						className="text-link"
