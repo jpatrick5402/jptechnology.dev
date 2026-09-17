@@ -7,12 +7,21 @@ function getIpAddress(request: Request) {
 	return forwardedFor?.split(",")[0].trim() || request.headers.get("x-real-ip");
 }
 
+// Set SITE_LOGGING_ENABLED=false in the environment to disable action logging.
+function isLoggingEnabled() {
+	return process.env.SITE_LOGGING_ENABLED !== "false";
+}
+
 export async function logSiteAction(
 	request: Request,
 	action: string,
 	description: string,
 	metadata: ActionMetadata = {},
 ) {
+	if (!isLoggingEnabled()) {
+		return;
+	}
+
 	try {
 		const { error } = await createSupabaseServerClient()
 			.from("site_action_logs")
