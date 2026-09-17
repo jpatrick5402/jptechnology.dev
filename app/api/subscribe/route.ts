@@ -93,7 +93,7 @@ export async function POST(request: Request) {
 			from: fromAddress,
 			to: [email],
 			subject: "You are on the JP Technology list",
-			text: `Thanks for joining the JP Technology list. We will send occasional notes about useful tools, new products, and the work behind them.\n\nUnsubscribe: ${unsubscribeUrl}`,
+			text: `Thanks for joining the JP Technology list. We will send occasional notes about useful tools, new initiatives, and the work behind them.\n\nUnsubscribe: ${unsubscribeUrl}`,
 		});
 		if (emailError) throw new Error(emailError.message);
 		await logSiteAction(

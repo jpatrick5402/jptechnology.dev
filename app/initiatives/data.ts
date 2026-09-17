@@ -20,7 +20,7 @@ export const initiatives: Initiative[] = [
 		tags: ["Assistive tech", "Custom builds"],
 		status: "In development",
 		body: [
-			"Most assistive products are built for the broadest possible market, which means they rarely fit any one person perfectly. We're starting from the opposite direction: understanding a specific person's daily tasks, their environment, and what independence actually looks like for them, then building the tool to match.",
+			"Most assistive tools are built for the broadest possible market, which means they rarely fit any one person perfectly. We're starting from the opposite direction: understanding a specific person's daily tasks, their environment, and what independence actually looks like for them, then building the tool to match.",
 			"That can mean a 3D-printed grip shaped for one hand, a switch-adapted control for a device that was never designed to be accessible, or small software that turns a multi-step task into one that's easier to start and finish alone.",
 			"We're early. Right now we're gathering the first few real-world cases to build alongside, learning what's repeatable versus what needs to stay bespoke, and shaping the process for how we'll take on future requests.",
 		],

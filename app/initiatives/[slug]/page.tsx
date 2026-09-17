@@ -42,7 +42,7 @@ export default async function InitiativePage({
 			</nav>
 			<section className="product-hero product-hero--single section-wrap">
 				<div className="product-hero-copy">
-					<Link className="back-link" href="/#products">
+					<Link className="back-link" href="/#initiatives">
 						<span className="back-link-arrow" aria-hidden="true">
 							←
 						</span>

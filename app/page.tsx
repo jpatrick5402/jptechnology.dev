@@ -6,7 +6,7 @@ import { ProductsConceptVisual } from "./components/ProductsConceptVisual";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { initiatives } from "./initiatives/data";
 
-const SECTION_IDS = ["top", "about", "products", "idea", "updates"];
+const SECTION_IDS = ["top", "about", "initiatives", "idea", "updates"];
 
 function logClientAction(
 	action: "page_view" | "section_view",
@@ -153,8 +153,8 @@ export default function Home() {
 						About
 					</a>
 					<a
-						href="#products"
-						onClick={(event) => handleNavClick(event, "products")}
+						href="#initiatives"
+						onClick={(event) => handleNavClick(event, "initiatives")}
 					>
 						Initiatives
 					</a>
@@ -210,8 +210,8 @@ export default function Home() {
 					</p>
 					<a
 						className="text-link"
-						href="#products"
-						onClick={(event) => handleNavClick(event, "products")}
+						href="#initiatives"
+						onClick={(event) => handleNavClick(event, "initiatives")}
 					>
 						Explore our work <span aria-hidden="true">↓</span>
 					</a>
@@ -259,14 +259,14 @@ export default function Home() {
 				</div>
 			</section>
 			<section
-				className={`products section-wrap${highlightedId === "products" ? " is-highlighted" : ""}`}
-				id="products"
+				className={`products section-wrap${highlightedId === "initiatives" ? " is-highlighted" : ""}`}
+				id="initiatives"
 			>
 				<div className="section-heading">
 					<div className="section-heading-copy">
 						<div className="section-label">[ 02 / Initiatives ]</div>
 						<p>
-							Products, ideas, and work underway.
+							Initiatives, ideas, and work underway.
 							<br />
 							Built around how people really work.
 						</p>
