@@ -1,8 +1,12 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, MouseEvent, useEffect, useState } from "react";
+import Link from "next/link";
 import { ProductsConceptVisual } from "./components/ProductsConceptVisual";
 import { ThemeToggle } from "./components/ThemeToggle";
+import { initiatives } from "./initiatives/data";
+
+const SECTION_IDS = ["top", "about", "products", "idea", "updates"];
 
 export default function Home() {
 	const [submitted, setSubmitted] = useState(false);
@@ -13,6 +17,37 @@ export default function Home() {
 	const [isNewsletterSubmitting, setIsNewsletterSubmitting] = useState(false);
 	const [newsletterError, setNewsletterError] = useState("");
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [highlightedId, setHighlightedId] = useState("");
+
+	function goToSection(id: string) {
+		const target = document.getElementById(id);
+		if (!target) return;
+		target.scrollIntoView({ behavior: "smooth", block: "start" });
+		window.history.replaceState(null, "", `#${id}`);
+		// retrigger the CSS animation even if the same section is clicked twice
+		setHighlightedId("");
+		requestAnimationFrame(() => setHighlightedId(id));
+	}
+
+	function handleNavClick(event: MouseEvent<HTMLAnchorElement>, id: string) {
+		event.preventDefault();
+		setIsMenuOpen(false);
+		goToSection(id);
+	}
+
+	// jump to and highlight a section when the page loads with a hash in the URL
+	useEffect(() => {
+		const hash = window.location.hash.replace("#", "");
+		if (hash && SECTION_IDS.includes(hash)) {
+			goToSection(hash);
+		}
+	}, []);
+
+	useEffect(() => {
+		if (!highlightedId) return;
+		const timeout = setTimeout(() => setHighlightedId(""), 1600);
+		return () => clearTimeout(timeout);
+	}, [highlightedId]);
 
 	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -74,7 +109,12 @@ export default function Home() {
 	return (
 		<main>
 			<nav className="site-nav" aria-label="Main navigation">
-				<a className="wordmark" href="#top" aria-label="JP Technology home">
+				<a
+					className="wordmark"
+					href="#top"
+					aria-label="JP Technology home"
+					onClick={(event) => handleNavClick(event, "top")}
+				>
 					<span className="wordmark-mark">JP</span>
 					<span>
 						Technology<span className="wordmark-dot">.</span>dev
@@ -96,16 +136,35 @@ export default function Home() {
 					className={`nav-links${isMenuOpen ? " is-open" : ""}`}
 					id="site-navigation-links"
 				>
-					<a href="#about">About</a>
-					<a href="#products">Products</a>
-					<a href="#updates">Subscribe</a>
+					<a href="#about" onClick={(event) => handleNavClick(event, "about")}>
+						About
+					</a>
+					<a
+						href="#products"
+						onClick={(event) => handleNavClick(event, "products")}
+					>
+						Initiatives
+					</a>
+					<a
+						href="#updates"
+						onClick={(event) => handleNavClick(event, "updates")}
+					>
+						Subscribe
+					</a>
 					<ThemeToggle />
-					<a className="nav-cta" href="#idea">
+					<a
+						className="nav-cta"
+						href="#idea"
+						onClick={(event) => handleNavClick(event, "idea")}
+					>
 						Share an idea <span aria-hidden="true">↗</span>
 					</a>
 				</div>
 			</nav>
-			<section className="hero section-wrap" id="top">
+			<section
+				className={`hero section-wrap${highlightedId === "top" ? " is-highlighted" : ""}`}
+				id="top"
+			>
 				<div className="hero-copy">
 					<p className="eyebrow">
 						<span className="live-dot" /> For people doing work that does not
@@ -136,7 +195,11 @@ export default function Home() {
 						closest to the problem, turning complicated work into something
 						clearer, calmer, and more useful.
 					</p>
-					<a className="text-link" href="#products">
+					<a
+						className="text-link"
+						href="#products"
+						onClick={(event) => handleNavClick(event, "products")}
+					>
 						Explore our work <span aria-hidden="true">↓</span>
 					</a>
 				</div>
@@ -153,7 +216,10 @@ export default function Home() {
 				<span className="ticker-mark" aria-hidden="true" />
 				<div>Leave a clear interface</div>
 			</section>
-			<section className="about section-wrap" id="about">
+			<section
+				className={`about section-wrap${highlightedId === "about" ? " is-highlighted" : ""}`}
+				id="about"
+			>
 				<div className="section-label">[ 01 / About ]</div>
 				<div className="about-content">
 					<h2>
@@ -169,35 +235,65 @@ export default function Home() {
 							That means listening closely, respecting real constraints, and
 							making complicated work feel more legible and less lonely.
 						</p>
-						<a className="text-link" href="#idea">
+						<a
+							className="text-link"
+							href="#idea"
+							onClick={(event) => handleNavClick(event, "idea")}
+						>
 							Start a conversation <span aria-hidden="true">↗</span>
 						</a>
 					</div>
 				</div>
 			</section>
-			<section className="products section-wrap" id="products">
+			<section
+				className={`products section-wrap${highlightedId === "products" ? " is-highlighted" : ""}`}
+				id="products"
+			>
 				<div className="section-heading">
 					<div className="section-heading-copy">
-						<div className="section-label">[ 02 / Products ]</div>
+						<div className="section-label">[ 02 / Initiatives ]</div>
 						<p>
-							Tools for the work in front of you.
+							Products, ideas, and work underway.
 							<br />
 							Built around how people really work.
 						</p>
 					</div>
 				</div>
+				{initiatives.map((initiative) => (
+					<Link
+						className="product-row"
+						href={`/initiatives/${initiative.slug}`}
+						key={initiative.slug}
+					>
+						<span className="product-number">{initiative.number}</span>
+						<h3>{initiative.title}</h3>
+						<p>{initiative.summary}</p>
+						<span className="product-tags">
+							<span>{initiative.status}</span>
+							{initiative.tags.map((tag) => (
+								<span key={tag}>{tag}</span>
+							))}
+						</span>
+						<span className="product-arrow" aria-hidden="true">
+							↗
+						</span>
+					</Link>
+				))}
 				<div className="products-empty-state">
 					<span className="products-empty-mark" aria-hidden="true" />
 					<div>
 						<h3>Hard at work.</h3>
 						<p>
-							Nothing released yet. We are building the right things for the
-							work ahead.
+							More initiatives are on the way. We are building the right things
+							for the work ahead.
 						</p>
 					</div>
 				</div>
 			</section>
-			<section className="idea section-wrap" id="idea">
+			<section
+				className={`idea section-wrap${highlightedId === "idea" ? " is-highlighted" : ""}`}
+				id="idea"
+			>
 				<div className="idea-heading">
 					<div className="section-label">[ 03 / Open brief ]</div>
 					<h2>
@@ -258,7 +354,10 @@ export default function Home() {
 					)}
 				</div>
 			</section>
-			<section className="newsletter section-wrap" id="updates">
+			<section
+				className={`newsletter section-wrap${highlightedId === "updates" ? " is-highlighted" : ""}`}
+				id="updates"
+			>
 				<div>
 					<div className="section-label">[ 04 / Field notes ]</div>
 					<h2>New Tech News</h2>
@@ -314,7 +413,11 @@ export default function Home() {
 				</div>
 			</section>
 			<footer className="site-footer section-wrap">
-				<a className="wordmark" href="#top">
+				<a
+					className="wordmark"
+					href="#top"
+					onClick={(event) => handleNavClick(event, "top")}
+				>
 					<span className="wordmark-mark">JP</span>
 					<span>
 						Technology<span className="wordmark-dot">.</span>dev
