@@ -33,7 +33,7 @@ export default function Home() {
 	function goToSection(id: string) {
 		const target = document.getElementById(id);
 		if (!target) return;
-		target.scrollIntoView({ behavior: "smooth", block: "start" });
+		target.scrollIntoView({ behavior: "smooth", block: "center" });
 		window.history.replaceState(null, "", `#${id}`);
 		logClientAction("section_view", id);
 		// retrigger the CSS animation even if the same section is clicked twice
