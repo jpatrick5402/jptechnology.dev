@@ -26,8 +26,22 @@ export const initiatives: Initiative[] = [
 		],
 	},
 	{
-		slug: "adaptive-tools",
+		slug: "consumer-electronics",
 		number: "02",
+		title: "Consumer Electronics",
+		summary:
+			"Designing, building, and selling thoughtfully made technology products that solve real problems and are meant to be used every day.",
+		tags: ["Hardware", "Product design"],
+		status: "Exploring",
+		body: [
+			"We want to build products that people actually want to own: useful technology that feels considered from the hardware on your desk to the software that makes it work. JP Technology's consumer electronics line is where we take ideas from our own experiments and turn them into products that are ready for the real world.",
+			"That means designing the electronics, enclosures, firmware, software, and everything in between, rather than treating hardware as something that gets bolted onto an existing idea. Some products may start as an internal experiment or a prototype for a specific problem, then grow into something we can offer to anyone who finds it useful.",
+			"We're still figuring out exactly what the product line will become. The goal is to build a small collection of genuinely useful devices, sell them directly, learn from the people who use them, and keep improving them over time.",
+		],
+	},
+	{
+		slug: "adaptive-tools",
+		number: "03",
 		title: "Adaptive Tools",
 		summary:
 			"Custom, and where it counts personalized, hardware and software that help people with disabilities and special needs handle daily tasks with more independence.",
