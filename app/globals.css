@@ -1947,3 +1947,61 @@ h2 em {
 		margin-top: 60px;
 	}
 }
+
+.status-pill {
+	align-items: center;
+	border: 1px solid var(--line);
+	border-radius: 999px;
+	color: var(--muted-strong);
+	display: inline-flex;
+	font-family: var(--mono);
+	font-size: 12px;
+	gap: 8px;
+	padding: 7px 12px;
+	white-space: nowrap;
+}
+.status-pill .status-dot {
+	border-radius: 50%;
+	flex-shrink: 0;
+	height: 8px;
+	width: 8px;
+}
+.status-pill.status-pill--live {
+	border-color: color-mix(in srgb, var(--acid) 55%, var(--line));
+	color: var(--ink);
+}
+.status-pill.status-pill--live .status-dot {
+	animation: status-pill-pulse 2s ease-in-out infinite;
+	background: var(--acid);
+	box-shadow: 0 0 8px var(--acid);
+}
+.status-pill.status-pill--dev {
+	border-color: color-mix(in srgb, var(--coral) 55%, var(--line));
+}
+.status-pill.status-pill--dev .status-dot {
+	background: var(--coral);
+}
+.status-pill.status-pill--muted .status-dot {
+	background: var(--muted);
+}
+@keyframes status-pill-pulse {
+	0%,
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 0.55;
+		transform: scale(0.8);
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.status-pill--live .status-dot {
+		animation: none;
+	}
+}
+/* Keep the pill's own border and padding inside .product-tags, where plain
+   tag spans get a border treatment that would otherwise override it. */
+.product-tags .status-pill {
+	padding: 7px 12px;
+}
