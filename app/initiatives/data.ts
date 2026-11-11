@@ -9,6 +9,7 @@ export interface Initiative {
 	number: string;
 	title: string;
 	summary: string;
+	liveUrl?: string;
 	tags: string[];
 	status: InitiativeStatus;
 	body: string[];
@@ -18,13 +19,15 @@ export const initiatives: Initiative[] = [
 	{
 		slug: "knowandgo",
 		number: "01",
-		title: "KnowAndGo.info",
-		summary: "All of the good things about your community centralized online",
+		title: "KnowAndGo",
+		summary:
+			"A community bulletin board on a map for local events, new businesses, garage sales, food pantries, and Little Libraries.",
+		liveUrl: "https://knowandgo.info",
 		tags: ["Web App", "Customer Solution"],
 		status: "Active",
 		body: [
-			"Too often the gems our our local communities are missed out on due to the large spread of information",
-			"KnowAndGo.info centralizes that data for you to allow you to know whats happening around you and proactively go support them",
+			"Too often, the good things in our local communities get missed because information is spread across so many places.",
+			"KnowAndGo brings it together on one map, so you can see what's happening around you and go support it.",
 		],
 	},
 	{
