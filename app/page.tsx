@@ -3,6 +3,7 @@
 import { FormEvent, MouseEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import { ProductsConceptVisual } from "./components/ProductsConceptVisual";
+import { StatusPill, KnowAndGoStatus } from "./components/StatusPill";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { initiatives } from "./initiatives/data";
 
@@ -241,8 +242,9 @@ export default function Home() {
 					</h2>
 					<div className="about-text">
 						<p>
-							We are a small, focused team building with the people who live
-							with the problem every day.
+							JP Technology Development is a one-person side project,
+							built alongside the people who live with the problem every
+							day.
 						</p>
 						<p>
 							That means listening closely, respecting real constraints, and
@@ -282,7 +284,11 @@ export default function Home() {
 						<h3>{initiative.title}</h3>
 						<p>{initiative.summary}</p>
 						<span className="product-tags">
-							<span>{initiative.status}</span>
+							{initiative.slug === "knowandgo" ? (
+								<KnowAndGoStatus />
+							) : (
+								<StatusPill status={initiative.status} />
+							)}
 							{initiative.tags.map((tag) => (
 								<span key={tag}>{tag}</span>
 							))}
@@ -373,7 +379,7 @@ export default function Home() {
 			>
 				<div>
 					<div className="section-label">[ 04 / Field notes ]</div>
-					<h2>New Tech News</h2>
+					<h2>Field notes</h2>
 					<p>
 						Sign up for notes from our projects, new tools, and the ideas that
 						make it out into the world.
@@ -436,7 +442,9 @@ export default function Home() {
 						Technology<span className="wordmark-dot">.</span>dev
 					</span>
 				</a>
-				<p>© 2026 JP Technology. Better tools for difficult work.</p>
+				<p>
+					© 2026 JP Technology Development. Better tools for difficult work.
+				</p>
 				<a href="mailto:hello@jptechnology.dev">
 					hello@jptechnology.dev <span aria-hidden="true">↗</span>
 				</a>
