@@ -1,6 +1,6 @@
 # jptechnology.dev
 
-A repository for the JP Technology Development LLC website
+A repository for the JP Technology Development (a sole proprietorship — not yet an LLC) website
 
 ## Environment
 
