@@ -47,9 +47,9 @@ export function ThemeToggle() {
 			onClick={toggleTheme}
 		>
 			<span className="theme-toggle-track" aria-hidden="true">
-				<span className="theme-toggle-thumb">{isLight ? "L" : "D"}</span>
+				<span className="theme-toggle-thumb">{isLight ? "D" : "L"}</span>
 			</span>
-			<span className="theme-toggle-label">{isLight ? "Light" : "Dark"}</span>
+			<span className="theme-toggle-label">{isLight ? "Dark" : "Light"}</span>
 		</button>
 	);
 }

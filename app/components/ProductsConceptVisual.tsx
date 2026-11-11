@@ -66,22 +66,22 @@ function SystemModel({ selectedModule }: { selectedModule: number }) {
 			<Connection
 				start={[0.9, 0.9, 0.9]}
 				end={[0, 0, 0]}
-				color={selectedModule === 0 ? "#ff765f" : "#435148"}
+				color={selectedModule === 0 ? "#ff765f" : "#5a6a5e"}
 			/>
 			<Connection
 				start={[0.9, -0.9, -0.9]}
 				end={[0, 0, 0]}
-				color={selectedModule === 1 ? "#ff765f" : "#435148"}
+				color={selectedModule === 1 ? "#ff765f" : "#5a6a5e"}
 			/>
 			<Connection
 				start={[-0.9, 0.9, -0.9]}
 				end={[0, 0, 0]}
-				color={selectedModule === 2 ? "#ff765f" : "#435148"}
+				color={selectedModule === 2 ? "#ff765f" : "#5a6a5e"}
 			/>
 			<Connection
 				start={[-0.9, -0.9, 0.9]}
 				end={[0, 0, 0]}
-				color={selectedModule === 3 ? "#ff765f" : "#435148"}
+				color={selectedModule === 3 ? "#ff765f" : "#5a6a5e"}
 			/>
 		</group>
 	);
@@ -99,13 +99,13 @@ function Module({
 	const bodyMaterialRef = useRef<MeshStandardMaterial>(null);
 	const outlineMaterialRef = useRef<MeshBasicMaterial>(null);
 	const moduleRef = useRef<Group>(null);
-	const bodyTargetColor = useRef(new Color("#18231f"));
-	const outlineTargetColor = useRef(new Color("#435148"));
+	const bodyTargetColor = useRef(new Color("#2f4238"));
+	const outlineTargetColor = useRef(new Color("#7d9280"));
 
 	useFrame((_, delta) => {
 		const blend = 1 - Math.exp(-delta * 8);
-		bodyTargetColor.current.set(selected ? "#ff765f" : "#18231f");
-		outlineTargetColor.current.set(selected ? "#ff765f" : "#435148");
+		bodyTargetColor.current.set(selected ? "#ff765f" : "#2f4238");
+		outlineTargetColor.current.set(selected ? "#ff765f" : "#7d9280");
 
 		bodyMaterialRef.current?.color.lerp(bodyTargetColor.current, blend);
 		outlineMaterialRef.current?.color.lerp(outlineTargetColor.current, blend);
@@ -116,7 +116,7 @@ function Module({
 		}
 		if (outlineMaterialRef.current) {
 			outlineMaterialRef.current.opacity +=
-				((selected ? 1 : 0.65) - outlineMaterialRef.current.opacity) * blend;
+				((selected ? 1 : 0.85) - outlineMaterialRef.current.opacity) * blend;
 		}
 		if (moduleRef.current) {
 			const targetScale = selected ? 1.1 : 1;
@@ -135,7 +135,7 @@ function Module({
 				<boxGeometry args={[0.72, 0.42, 0.62]} />
 				<meshStandardMaterial
 					ref={bodyMaterialRef}
-					color="#18231f"
+					color="#2f4238"
 					emissive="#7d241a"
 					emissiveIntensity={0}
 					roughness={0.5}
@@ -146,10 +146,10 @@ function Module({
 				<boxGeometry args={[0.72, 0.42, 0.62]} />
 				<meshBasicMaterial
 					ref={outlineMaterialRef}
-					color="#435148"
+					color="#7d9280"
 					wireframe
 					transparent
-					opacity={0.65}
+					opacity={0.85}
 				/>
 			</mesh>
 		</group>
@@ -210,7 +210,7 @@ export function ProductsConceptVisual() {
 			role="img"
 		>
 			<div className="products-visual-label">SYSTEM / IN DEVELOPMENT</div>
-			<Canvas camera={{ position: [0, 0, 6.8], fov: 38 }} dpr={[1, 1.5]}>
+			<Canvas camera={{ position: [0, 0, 5.9], fov: 38 }} dpr={[1, 1.5]}>
 				<ambientLight intensity={1.3} />
 				<directionalLight
 					position={[3, 4, 5]}

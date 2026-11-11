@@ -187,20 +187,23 @@ export default function Home() {
 					<h1>
 						<span className="path-step">
 							<em>Real</em>
+							<span className="path-arrow" aria-hidden="true">
+								→
+							</span>
 							<span>People</span>
-						</span>
-						<span className="path-arrow" aria-hidden="true">
-							→
 						</span>
 						<span className="path-step">
 							<em>Tough</em>
+							<span className="path-arrow" aria-hidden="true">
+								→
+							</span>
 							<span>Problems</span>
-						</span>
-						<span className="path-arrow" aria-hidden="true">
-							→
 						</span>
 						<span className="path-step">
 							<em>Useful</em>
+							<span className="path-arrow" aria-hidden="true">
+								→
+							</span>
 							<span>Solutions</span>
 						</span>
 					</h1>
@@ -238,7 +241,7 @@ export default function Home() {
 				<div className="about-content">
 					<h2>
 						Good technology gives people room to do their{" "}
-						<span>best work.</span>
+						<em>best work.</em>
 					</h2>
 					<div className="about-text">
 						<p>
@@ -251,7 +254,7 @@ export default function Home() {
 							making complicated work feel more legible and less lonely.
 						</p>
 						<a
-							className="text-link"
+							className="submit-button"
 							href="#idea"
 							onClick={(event) => handleNavClick(event, "idea")}
 						>

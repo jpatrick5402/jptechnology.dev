@@ -34,7 +34,7 @@ export function StatusPill({
 }
 
 export function KnowAndGoStatus({ className }: { className?: string } = {}) {
-	const [label, setLabel] = useState<string | null>(null);
+	const [label, setLabel] = useState<string>("Live");
 
 	useEffect(() => {
 		let cancelled = false;
@@ -66,7 +66,7 @@ export function KnowAndGoStatus({ className }: { className?: string } = {}) {
 	return (
 		<span className={classNames}>
 			<span className="status-dot" aria-hidden="true" />
-			{label ?? "Checking…"}
+			{label}
 		</span>
 	);
 }
