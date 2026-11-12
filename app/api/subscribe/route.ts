@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import { logSiteAction } from "@/lib/supabase/logSiteAction";
+import { logSiteAction } from "@/lib/neon/logSiteAction";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
