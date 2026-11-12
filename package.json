@@ -16,6 +16,7 @@
 		"@vercel/speed-insights": "^2.0.0",
 		"motion": "^13.2.0",
 		"next": "latest",
+		"postgres": "^4.1.1",
 		"react": "latest",
 		"react-dom": "latest",
 		"resend": "^6.26.0",
