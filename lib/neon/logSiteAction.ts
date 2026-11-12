@@ -8,9 +8,15 @@ const globalForNeon = globalThis as unknown as {
 
 function client() {
 	// jptechnology.dev is connected to Neon through Vercel, which provides
-	// DATABASE_URL. NEON_DATABASE_URL is kept as a fallback for a manually
-	// copied connection string (e.g. the KnowAndGo app's STORAGE_DATABASE_URL).
-	const url = process.env.DATABASE_URL || process.env.NEON_DATABASE_URL;
+	// DATABASE_URL (pooled) and DATABASE_URL_UNPOOLED (direct). Prefer the
+	// direct connection: postgres-js with max: 1 is happier without the
+	// pooler in the middle. NEON_DATABASE_URL is kept as a fallback for a
+	// manually copied connection string (e.g. the KnowAndGo app's
+	// STORAGE_DATABASE_URL).
+	const url =
+		process.env.DATABASE_URL_UNPOOLED ||
+		process.env.DATABASE_URL ||
+		process.env.NEON_DATABASE_URL;
 	if (!url) throw new Error("DATABASE_URL is not set");
 	return (globalForNeon.jpLogsClient ??= postgres(url, { max: 1 }));
 }
