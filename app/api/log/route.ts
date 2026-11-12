@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { logSiteAction } from "@/lib/supabase/logSiteAction";
+import { logSiteAction } from "@/lib/neon/logSiteAction";
 
 const publicActions = {
 	page_view: "Viewed the homepage",
