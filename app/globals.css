@@ -88,15 +88,8 @@ a {
 	letter-spacing: -0.04em;
 }
 .wordmark-mark {
-	align-items: center;
-	background: var(--deep);
-	color: var(--acid);
-	display: inline-flex;
-	font-family: var(--mono);
-	font-size: 12px;
+	display: block;
 	height: 28px;
-	justify-content: center;
-	letter-spacing: -0.1em;
 	width: 28px;
 }
 .wordmark-dot {
