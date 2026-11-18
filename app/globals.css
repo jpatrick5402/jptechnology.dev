@@ -88,6 +88,7 @@ a {
 	letter-spacing: -0.04em;
 }
 .wordmark-mark {
+	border-radius: 50%;
 	display: block;
 	height: 28px;
 	width: 28px;
