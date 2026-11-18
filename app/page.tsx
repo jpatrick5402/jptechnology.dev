@@ -130,7 +130,7 @@ export default function Home() {
 					aria-label="JP Technology home"
 					onClick={(event) => handleNavClick(event, "top")}
 				>
-					<Image src="/logo-badge.png" alt="JP Technology Development logo" width={28} height={28} className="wordmark-mark" priority />
+					<Image src="/logo-mark.png" alt="JP Technology Development logo" width={28} height={28} className="wordmark-mark" priority />
 					<span>
 						Technology<span className="wordmark-dot">.</span>dev
 					</span>
@@ -441,7 +441,7 @@ export default function Home() {
 					href="#top"
 					onClick={(event) => handleNavClick(event, "top")}
 				>
-					<Image src="/logo-badge.png" alt="JP Technology Development logo" width={28} height={28} className="wordmark-mark" priority />
+					<Image src="/logo-mark.png" alt="JP Technology Development logo" width={28} height={28} className="wordmark-mark" priority />
 					<span>
 						Technology<span className="wordmark-dot">.</span>dev
 					</span>
