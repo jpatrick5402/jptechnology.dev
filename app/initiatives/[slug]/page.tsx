@@ -37,7 +37,7 @@ export default async function InitiativePage({
 		<main className="product-page">
 			<nav className="site-nav" aria-label="Main navigation">
 				<Link className="wordmark" href="/">
-					<Image src="/logo-badge.png" alt="JP Technology Development logo" width={28} height={28} className="wordmark-mark" priority />
+					<Image src="/logo-mark.png" alt="JP Technology Development logo" width={28} height={28} className="wordmark-mark" priority />
 					<span>
 						Technology<span className="wordmark-dot">.</span>dev
 					</span>
@@ -126,7 +126,7 @@ export default async function InitiativePage({
 			</section>
 			<footer className="site-footer section-wrap">
 				<Link className="wordmark" href="/">
-					<Image src="/logo-badge.png" alt="JP Technology Development logo" width={28} height={28} className="wordmark-mark" priority />
+					<Image src="/logo-mark.png" alt="JP Technology Development logo" width={28} height={28} className="wordmark-mark" priority />
 					<span>
 						Technology<span className="wordmark-dot">.</span>dev
 					</span>
