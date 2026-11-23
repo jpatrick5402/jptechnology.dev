@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { StatusPill, KnowAndGoStatus } from "../../components/StatusPill";
 import { ThemeToggle } from "../../components/ThemeToggle";
+import { AdaptiveToolsForm } from "../../components/AdaptiveToolsForm";
 import { getInitiative, initiatives } from "../data";
 
 export function generateStaticParams() {
@@ -107,6 +108,20 @@ export default async function InitiativePage({
 							>
 								Visit KnowAndGo <span aria-hidden="true">↗</span>
 							</a>
+						</div>
+					</>
+				) : initiative.slug === "adaptive-tools" ? (
+					<>
+						<div>
+							<div className="section-label">[ Get involved ]</div>
+							<h2>Tell us about the task</h2>
+						</div>
+						<div className="adaptive-form-wrap">
+							<p>
+								Describe the daily task you (or someone you care for)
+								need help with, and we&apos;ll reply by email.
+							</p>
+							<AdaptiveToolsForm />
 						</div>
 					</>
 				) : (
