@@ -1915,6 +1915,64 @@ h2 em {
 	color: var(--on-dark);
 	margin-top: 12px;
 }
+.product-cta > div.adaptive-form-wrap {
+	max-width: 440px;
+	width: 100%;
+}
+.adaptive-form {
+	display: grid;
+	gap: 18px;
+	margin-top: 18px;
+}
+.adaptive-form label {
+	color: var(--on-acid);
+	font-family: var(--mono);
+	font-size: 12px;
+	text-transform: uppercase;
+}
+.adaptive-form input,
+.adaptive-form textarea {
+	background: transparent;
+	border: 1px solid var(--on-acid);
+	border-radius: 6px;
+	color: var(--on-acid);
+	display: block;
+	font-family: var(--display);
+	font-size: 16px;
+	margin-top: 10px;
+	outline: 0;
+	padding: 12px 14px;
+	resize: none;
+	width: 100%;
+}
+.adaptive-form textarea {
+	min-height: 100px;
+}
+.adaptive-form input::placeholder,
+.adaptive-form textarea::placeholder {
+	color: var(--on-acid);
+	opacity: 0.55;
+}
+.adaptive-form input:focus,
+.adaptive-form textarea:focus {
+	border-color: var(--deep);
+}
+.adaptive-form .honeypot {
+	display: none;
+}
+.adaptive-form .form-error {
+	color: #b3261e;
+}
+.product-cta .success-message span {
+	color: var(--on-acid);
+}
+.product-cta .success-message p {
+	color: var(--on-acid);
+}
+.product-cta .success-message button {
+	background: var(--deep);
+	color: var(--on-dark);
+}
 @media (prefers-reduced-motion: reduce) {
 	*,
 	*::before,
