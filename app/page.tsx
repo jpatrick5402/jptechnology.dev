@@ -246,8 +246,8 @@ export default function Home() {
 					</h2>
 					<div className="about-text">
 						<p>
-							JP Technology Development is a one-person side project,
-							built alongside the people who live with the problem every
+							JP Technology Development is a one-person side project — your friendly neighborhood engineer,
+							building alongside the people who live with the problem every
 							day.
 						</p>
 						<p>
